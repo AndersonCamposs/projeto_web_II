@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Página inicial</h3>
+    <hr>
+    <div>
+        Nome: <%=aluno1.nome%>
+    </div>
+    <div>
+        Curso: <%=aluno1.curso%>
+    </div>
+    <div>
+        <% if (aluno1.curso === 'Licenciatura em Computação') { %>
+            <h4>SEU CURSO É O MELHOR!</h4>
+        <% } %>
+    </div>
+</body>
+</html>
