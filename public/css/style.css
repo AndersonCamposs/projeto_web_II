@@ -1,0 +1,29 @@
+.typewriter-title h1 {
+    font-family: 'Share Tech Mono', sans-serif;
+    overflow: hidden;
+    border-right: .15em solid #000;
+    white-space: nowrap;
+    margin: 0 auto;
+    letter-spacing: .15em;
+    animation:
+        typing 3s steps(40, end),
+        blink-caret .8s step-end infinite;
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+    to {
+        width: 100%
+    }
+}
+
+@keyframes blink-caret {
+    from, to {
+        border-color: transparent
+    }
+    50% {
+        border-color: #000;
+    }
+}
