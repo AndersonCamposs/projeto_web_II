@@ -2,7 +2,7 @@ const express = require('express');
 const Aluno = require('./Aluno');
 
 const app = express();
-
+app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.use(express.static('public')); 
