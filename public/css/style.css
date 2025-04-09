@@ -1,3 +1,7 @@
+:root {
+    font-family: sans-serif, 'Times New Roman', Times;
+}
+
 .typewriter-title h1 {
     font-family: 'Share Tech Mono', sans-serif;
     overflow: hidden;
