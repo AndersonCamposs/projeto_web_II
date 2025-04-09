@@ -6,23 +6,34 @@
 <body>
     <%- include('../partials/navBar') %>
     <h1>Relatório de alunos</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Nome</th>
-                <th>Curso</th>
-                <th>Matrícula</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% lista.forEach(aluno => { %>
-                <tr>
-                    <td><%= aluno.nome%></td>
-                    <td><%= aluno.curso%></td>
-                    <td><%= aluno.matricula%></td>
-                </tr>
-            <% }) %>
-        </tbody>
-    </table>
+    <% if (status == 1) { %>
+        <p class="text-success">Aluno cadastrado com sucesso...</p>
+    <% } %>
+    <div class="row">
+        <div class="col-6">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Matrícula</th>
+                    <th scope="col">Detalhes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <% lista.forEach(aluno => { %>
+                        <tr>
+                            <td><%= aluno.nome%></td>
+                            <td><%= aluno.curso%></td>
+                            <td><%= aluno.matricula%></td>
+                            <td><a href="/alunos/<%= aluno.matricula%>" class="link-primary">Adicionar</a></td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+            <p class="mt-2"><a href="/alunos/cadastrar" class="link-primary">Adicionar</a></p>
+        </div>
+    </div>
+    
 </body>
 </html>
