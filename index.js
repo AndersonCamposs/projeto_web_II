@@ -17,9 +17,15 @@ const aluno3 = new Aluno('LCA3', 'Pedro', 'Licenciatura em Computação');
 lista.push(aluno1, aluno2, aluno3);
 
 
-app.get('/alunos', (req, res) => {    
-    res.render('aluno/relatorio', {lista})
+app.get('/alunos', (req, res) => {  
+    const status = req.query.s; 
+    res.render('aluno/relatorio', {lista, status})
 })
+
+app.get('/alunos/cadastrar', (req, res) => {
+    res.render('aluno/cadastrar')
+})
+
 
 app.get('/alunos/:matricula', (req, res) => {    
     const matricula = req.params.matricula;
@@ -27,10 +33,16 @@ app.get('/alunos/:matricula', (req, res) => {
     res.render('aluno/detalhe', {aluno})
 })
 
+app.post('/alunos', (req, res) => {
+    const {matricula, nome, curso} = req.body;
+    lista.push(new Aluno(matricula, nome, curso));
+    res.redirect('/alunos?s=1')
+})
+
 app.get('/', (req, res) => {
     res.render('index', {aluno1});
 })
-
+ 
 app.use((req, res) => {
     res.status(404).render('404');
 })
