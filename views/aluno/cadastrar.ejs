@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../partials/head', { title: "Página inicial"}) %>
+<body>
+    <div class="container-fluid">
+        <h1>Cadastrar alunos</h1>
+        <form action="/alunos" method="post">
+            <div class="row">
+                <div class="col-3">
+                    <div class="mb-3">
+                        <label for="inputMatricula" class="form-label">Matrícula do aluno:</label>
+                        <input type="text" class="form-control" id="inputMatricula" name="matricula" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="mb-3">
+                        <label for="inputNome" class="form-label">Nome do aluno:</label>
+                        <input type="text" class="form-control" id="inputMatricula" name="nome" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="mb-3">
+                        <label for="inputCurso" class="form-label">Curso do aluno:</label>
+                        <input type="text" class="form-control" id="inputMatricula" name="curso" required>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+    
+</body>
+</html>
