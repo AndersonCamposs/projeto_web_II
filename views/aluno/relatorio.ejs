@@ -3,37 +3,42 @@
 
 <%- include('../partials/head', { title: "Relatório de alunos"}) %>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <%- include('../partials/navBar') %>
-    <h1>Relatório de alunos</h1>
-    <% if (status == 1) { %>
-        <p class="text-success">Aluno cadastrado com sucesso...</p>
-    <% } %>
-    <div class="row">
-        <div class="col-6">
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Curso</th>
-                    <th scope="col">Matrícula</th>
-                    <th scope="col">Detalhes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <% lista.forEach(aluno => { %>
+    <main class="flex-grow-1">
+        <div class="container-fluid">
+            <h1>Relatório de alunos</h1>
+            <% if (status == 1) { %>
+                <p class="text-success">Aluno cadastrado com sucesso...</p>
+            <% } %>
+            <div class="row">
+                <div class="col-6">
+                    <table class="table">
+                        <thead>
                         <tr>
-                            <td><%= aluno.nome%></td>
-                            <td><%= aluno.curso%></td>
-                            <td><%= aluno.matricula%></td>
-                            <td><a href="/alunos/<%= aluno.matricula%>" class="link-primary">Adicionar</a></td>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Curso</th>
+                            <th scope="col">Matrícula</th>
+                            <th scope="col">Detalhes</th>
                         </tr>
-                    <% }) %>
-                </tbody>
-            </table>
-            <p class="mt-2"><a href="/alunos/cadastrar" class="link-primary">Adicionar</a></p>
+                        </thead>
+                        <tbody>
+                            <% lista.forEach(aluno => { %>
+                                <tr>
+                                    <td><%= aluno.nome%></td>
+                                    <td><%= aluno.curso%></td>
+                                    <td><%= aluno.matricula%></td>
+                                    <td><a href="/alunos/<%= aluno.matricula%>" class="link-primary">Detalhes</a></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                    <p class="mt-2"><a href="/alunos/cadastrar" class="link-primary">Adicionar</a></p>
+                </div>
+            </div>
         </div>
-    </div>
+    </main>
     
+    <%- include('../partials/footer') %>
 </body>
 </html>
