@@ -1,6 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
-require("dotenv").config()
+require("dotenv").config();
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
@@ -51,8 +51,8 @@ app.get("/passageiros/cadastrar", (req, res) => {
 });
 
 app.post("/passageiros", async (req, res) => {
-    
-})
+    console.log(req.body);
+});
 
 app.use((req, res) => {
     res.status(404).render("404");

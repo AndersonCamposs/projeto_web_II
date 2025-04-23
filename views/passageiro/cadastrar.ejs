@@ -3,26 +3,93 @@
 <%- include('../partials/head', { title: "Cadastrar passageiro" }) %>
 
 <body>
-    <%- include('../partials/navBar') %>
-    <div class="container">
-        <h1></h1>
+  <%- include('../partials/navBar') %>
+  <div class="container">
+    <p class="text-center fs-3 my-3">Adicionar passageiros</p>
+    <div class="card">
+      <div class="card-header">
+        <i class="fa-solid fa-pencil me-1"></i>Preencha os dados corretamente
+      </div>
+      <div class="card-body">
         <form action="/passageiros" method="post">
-            <div class="row">
-                <div class="col-12 col-sm-8 col-lg-6">
-                    <div class="form-floating mb-3">
-                        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                        <label for="floatingInput">Email address</label>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-8 col-lg-6">
-                    <div class="form-floating">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                        <label for="floatingPassword">Password</label>
-                    </div>
-                </div>
+          <i class="fa-solid fa-user me-1"></i> Dados Pessoais
+          <div class="row my-2">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" required placeholder="Nome do passageiro" name="nome">
+                <label for="floatingInput">Nome do passageiro</label>
+              </div>
             </div>
+            <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingPassword" required placeholder="CPF" name="cpf">
+                <label for="floatingPassword">CPF</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingPassword" required placeholder="RG" name="rg">
+                <label for="floatingPassword">RG</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+              <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="floatingPassword" required placeholder="Data de nascimento" name="dataNascimento">
+                <label for="floatingPassword">Data de nascimento</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingPassword" required placeholder="Telefone" name="telefone">
+                <label for="floatingPassword">Telefone</label>
+              </div>
+            </div>
+          </div>
+
+          <i class="fa-solid fa-house-user me-1"></i> Dados de endereço
+          <div class="row my-2">
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" required placeholder="Estado" name="estado">
+                <label for="floatingInput">Estado</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" required placeholder="Cidade" name="cidade">
+                <label for="floatingInput">Cidade</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" required placeholder="Logradouro" name="logradouro">
+                <label for="floatingInput">Logradouro</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" required placeholder="Bairro" name="bairro">
+                <label for="floatingInput">Bairro</label>
+              </div>
+            </div>
+            <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="floatingInput" required placeholder="Número residencial" name="numeroResidencia">
+                <label for="floatingInput">Número residencial</label>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-primary px-4">Salvar</button>
+            </div>
+          </div>
+
         </form>
+      </div>
     </div>
+
+  </div>
 </body>
 
 </html>
