@@ -13,6 +13,7 @@ mongoose.connect(
 );
 
 const Aluno = require("./models/Aluno");
+const Passageiro = require("./models/Passageiro");
 
 app.get("/alunos", async (req, res) => {
     const status = req.query.s;
@@ -46,12 +47,45 @@ app.get("/", (req, res) => {
 });
 
 // conteúdos pertinentes ao projeto
+app.get("/passageiros", async (req, res) => {
+    const status = req.query.s;
+    const listaPassageiros = await Passageiro.find();
+    res.render("passageiro/relatorio", { listaPassageiros, status });
+});
+
 app.get("/passageiros/cadastrar", (req, res) => {
     res.render("passageiro/cadastrar");
 });
 
 app.post("/passageiros", async (req, res) => {
     console.log(req.body);
+    const {
+        nome,
+        cpf,
+        rg,
+        dataNascimento,
+        telefone,
+        estado,
+        cidade,
+        logradouro,
+        bairro,
+        numeroResidencia,
+    } = req.body;
+    const novoPassageiro = new Passageiro({
+        nome,
+        cpf,
+        rg,
+        dataNascimento,
+        telefone,
+        estado,
+        cidade,
+        logradouro,
+        bairro,
+        numeroResidencia,
+    });
+    await novoPassageiro.save();
+
+    res.redirect("/passageiros?s=1")
 });
 
 app.use((req, res) => {
