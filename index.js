@@ -15,6 +15,8 @@ mongoose.connect(
 const Aluno = require("./models/Aluno");
 const Passageiro = require("./models/Passageiro");
 
+const { formatDate } = require("./utils/formatterUtils");
+
 app.get("/alunos", async (req, res) => {
     const status = req.query.s;
     const lista = await Aluno.find();
@@ -50,7 +52,11 @@ app.get("/", (req, res) => {
 app.get("/passageiros", async (req, res) => {
     const status = req.query.s;
     const listaPassageiros = await Passageiro.find();
-    res.render("passageiro/relatorio", { listaPassageiros, status });
+    res.render("passageiro/relatorio", {
+        listaPassageiros,
+        status,
+        formatDate,
+    });
 });
 
 app.get("/passageiros/cadastrar", (req, res) => {
@@ -85,7 +91,7 @@ app.post("/passageiros", async (req, res) => {
     });
     await novoPassageiro.save();
 
-    res.redirect("/passageiros?s=1")
+    res.redirect("/passageiros?s=1");
 });
 
 app.use((req, res) => {

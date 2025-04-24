@@ -1,40 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include('../partials/head', { title: "Cadastrar passageiro" }) %>
+<%- include('../partials/head', { title: "Cadastrar passageiro" }) %>
 
-    <body>
-    <%- include('../partials/navBar') %>
-    <div class="container mt-3">
-        <% if (listaPassageiros.length === 0) { %>
-            <div class="alert alert-warning text-center" role="alert">
-                Não há passageiros cadastrados. Para adicionar passageiros, <a href="/passageiros/cadastrar" class="alert-link">clique aqui</a>.
-            </div>
-        <% } else { %>
-            <p class="text-center fs-3 my-3">Lista de passageiros</p>
-            <div class="card">
-                <div class="card-header">
-                    <i class="fa-solid fa-list"></i> Listagem de passageiros cadastrados
-                </div>
-                <div class="card-body">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Nome</th>
-                                <th scope="col">CPF</th>
-                                <th scope="col">Data de Nascimento</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% listaPassageiros.forEach((passageiro) => { %>
-                                <td><%= passageiro.nome %></td>
-                                <td><%= passageiro.cpf %></td>
-                                <td><%= passageiro.dataNascimento %></td>
-                            <% }) %>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        <% } %>
+<body>
+  <%- include('../partials/navBar') %>
+  <div class="container mt-3">
+    <% if (listaPassageiros.length === 0) { %>
+    <div class="alert alert-warning text-center" role="alert">
+      Não há passageiros cadastrados. Para adicionar passageiros, <a href="/passageiros/cadastrar" class="alert-link">clique aqui</a>.
     </div>
-    </body>
+    <% } else { %>
+    <p class="text-center fs-3 my-3">Lista de passageiros</p>
+    <div class="card">
+      <div class="card-header">
+        <i class="fa-solid fa-list"></i> Listagem de passageiros cadastrados
+      </div>
+      <div class="card-body px-0">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Nome</th>
+              <th scope="col">CPF</th>
+              <th scope="col">Data de Nascimento</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% listaPassageiros.forEach((passageiro) => { %>
+            <td><%= passageiro.nome %></td>
+            <td><%= passageiro.cpf %></td>
+            <td><%=formatDate(passageiro.dataNascimento)%></td>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</body>
+
 </html>
