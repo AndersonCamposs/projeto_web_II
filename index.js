@@ -63,6 +63,16 @@ app.get("/passageiros/cadastrar", (req, res) => {
     res.render("passageiro/cadastrar");
 });
 
+app.get("/passageiros/:_id", async (req, res) => {
+    const idString = req.params._id;
+    let idObject = null;
+    if (mongoose.Types.ObjectId.isValid(idString)) {
+        idObject = new mongoose.Types.ObjectId(idString);
+    }
+    const passageiro = await Passageiro.findOne({ _id: idObject });
+    res.render("passageiro/detalhe", { passageiro })
+})
+
 app.post("/passageiros", async (req, res) => {
     console.log(req.body);
     const {

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head', { title: "Cadastrar passageiro" }) %>
+<%- include('../partials/head', { title: "Relatório de passagiros" }) %>
 
 <body>
   <%- include('../partials/navBar') %>
@@ -22,6 +22,7 @@
               <th scope="col">Nome</th>
               <th scope="col">CPF</th>
               <th scope="col">Data de Nascimento</th>
+              <th scope="col">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -29,6 +30,11 @@
             <td><%= passageiro.nome %></td>
             <td><%= passageiro.cpf %></td>
             <td><%=formatDate(passageiro.dataNascimento)%></td>
+            <td>
+              <a href="/passageiros/<%= passageiro._id%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes do passageiro">
+                <i class="fa-solid fa-eye"></i>
+              </a>
+            </td>
             <% }) %>
           </tbody>
         </table>
