@@ -70,8 +70,8 @@ app.get("/passageiros/:_id", async (req, res) => {
         idObject = new mongoose.Types.ObjectId(idString);
     }
     const passageiro = await Passageiro.findOne({ _id: idObject });
-    res.render("passageiro/detalhe", { passageiro })
-})
+    res.render("passageiro/detalhe", { passageiro, formatDate });
+});
 
 app.post("/passageiros", async (req, res) => {
     console.log(req.body);
