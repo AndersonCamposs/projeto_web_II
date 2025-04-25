@@ -104,6 +104,12 @@ app.post("/passageiros", async (req, res) => {
     res.redirect("/passageiros?s=1");
 });
 
+app.get("/voos/cadastrar", async (req, res) => {
+    const responsePaisesLista = await fetch("https://restcountries.com/v3.1/all?fields=name");
+    const paisesLista = await responsePaisesLista.json();
+    res.render("voo/cadastrar", { paisesLista });
+})
+
 app.use((req, res) => {
     res.status(404).render("404");
 });
