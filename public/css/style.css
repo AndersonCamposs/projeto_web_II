@@ -32,8 +32,6 @@
     }
 }
 
-@media(max-width: 992px) {
-    .btn-fixed {
-        width: 110px;
-    }
+.btn-fixed {
+    width: 110px
 }
