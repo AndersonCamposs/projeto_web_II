@@ -50,11 +50,11 @@ app.get("/", (req, res) => {
 
 // conteúdos pertinentes ao projeto
 app.get("/passageiros", async (req, res) => {
-    const status = req.query.s;
+    const s = req.query.s;
     const listaPassageiros = await Passageiro.find();
     res.render("passageiro/relatorio", {
         listaPassageiros,
-        status,
+        s,
         formatDate,
     });
 });
