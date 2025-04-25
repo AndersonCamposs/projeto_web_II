@@ -39,9 +39,43 @@
           </tbody>
         </table>
       </div>
+      <div class="card-footer">
+        <p class="my-1">
+          <a href="/passageiros/cadastrar" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+            <i class="fa-solid fa-plus"></i> Adicionar passageiro
+          </a>
+        </p>
+      </div>
     </div>
     <% } %>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+      <div id="addedSuccessfullyToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-success">
+          <i class="fa-solid fa-square-check me-2"></i>
+          <strong class="me-auto">Adicionado com sucesso</strong>
+          <small> <%= `${new Date().getHours().toString().padStart(2, "0")}:${new Date().getMinutes().toString().padStart(2, "0")}` %> </small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          O passageiro foi adicionado com sucesso e já encontra-se na lista.
+        </div>
+      </div>
+    </div>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const s = "<%= s %>";
+      const delay = 10000
+      if (s === "1") {
+        const addedSuccessfullyToast = document.querySelector("#addedSuccessfullyToast");
+        const toast = bootstrap.Toast.getOrCreateInstance(addedSuccessfullyToast, {
+          delay
+        });
+        toast.show();
+      }
+    })
+  </script>
 </body>
 
 </html>
