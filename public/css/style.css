@@ -31,3 +31,7 @@
         border-color: #000;
     }
 }
+
+.btn-fixed {
+    width: 110px
+}

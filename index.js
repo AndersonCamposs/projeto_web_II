@@ -50,17 +50,27 @@ app.get("/", (req, res) => {
 
 // conteúdos pertinentes ao projeto
 app.get("/passageiros", async (req, res) => {
-    const status = req.query.s;
+    const s = req.query.s;
     const listaPassageiros = await Passageiro.find();
     res.render("passageiro/relatorio", {
         listaPassageiros,
-        status,
+        s,
         formatDate,
     });
 });
 
 app.get("/passageiros/cadastrar", (req, res) => {
     res.render("passageiro/cadastrar");
+});
+
+app.get("/passageiros/:_id", async (req, res) => {
+    const idString = req.params._id;
+    let idObject = null;
+    if (mongoose.Types.ObjectId.isValid(idString)) {
+        idObject = new mongoose.Types.ObjectId(idString);
+    }
+    const passageiro = await Passageiro.findOne({ _id: idObject });
+    res.render("passageiro/detalhe", { passageiro, formatDate });
 });
 
 app.post("/passageiros", async (req, res) => {
