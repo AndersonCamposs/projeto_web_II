@@ -14,6 +14,8 @@ const vooSchema = Schema({
     tipoVoo: {
         type: String,
         enum: ["Nacional", "Internacional"],
-        default: "Nacional"
-    }
-})
+        default: "Nacional",
+    },
+});
+
+module.exports = mongoose.model("Voo", vooSchema);
