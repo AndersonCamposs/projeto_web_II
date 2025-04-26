@@ -14,6 +14,7 @@ mongoose.connect(
 
 const Aluno = require("./models/Aluno");
 const Passageiro = require("./models/Passageiro");
+const Voo = require("./models/Voo");
 
 const { formatDate } = require("./utils/formatterUtils");
 
@@ -74,7 +75,6 @@ app.get("/passageiros/:_id", async (req, res) => {
 });
 
 app.post("/passageiros", async (req, res) => {
-    console.log(req.body);
     const {
         nome,
         cpf,
@@ -104,11 +104,45 @@ app.post("/passageiros", async (req, res) => {
     res.redirect("/passageiros?s=1");
 });
 
+app.get("/voos", async (req, res) => {
+    const s = req.query.s;
+    const listaVoos = await Voo.find();
+
+    res.render("voo/relatorio", { listaVoos, s, formatDate });
+});
+
 app.get("/voos/cadastrar", async (req, res) => {
-    const responsePaisesLista = await fetch("https://restcountries.com/v3.1/all?fields=name");
-    const paisesLista = await responsePaisesLista.json();
-    res.render("voo/cadastrar", { paisesLista });
-})
+    res.render("voo/cadastrar");
+});
+
+app.post("/voos", async (req, res) => {
+    const {
+        paisOrigem,
+        estadoOrigem,
+        cidadeOrigem,
+        paisDestino,
+        estadoDestino,
+        cidadeDestino,
+        tipoVoo,
+        data,
+        hora,
+    } = req.body;
+    const novoVoo = new Voo({
+        paisOrigem,
+        estadoOrigem,
+        cidadeOrigem,
+        paisDestino,
+        estadoDestino,
+        cidadeDestino,
+        data,
+        hora,
+        tipoVoo,
+    });
+
+    await novoVoo.save();
+
+    res.redirect("/voos?s=1");
+});
 
 app.use((req, res) => {
     res.status(404).render("404");
