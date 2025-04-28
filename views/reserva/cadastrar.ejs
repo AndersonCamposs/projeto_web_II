@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: "Cadastrar voo" }) %>
+
+<body>
+  <%- include('../partials/navBar') %>
+  <div class="container">
+    <p class="text-center fs-3 my-3">Realizar reserva</p>
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa-solid fa-plane-departure"></i> Buscar voo
+      </div>
+      <div class="card-body">
+        <form action="/reservas/cadastrar" method="get" autocomplete="off">
+          <div class="row my-1 d-flex justify-content-center">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="paisOrigemInput" required placeholder="País de origem do voo" name="codVoo" value=<%= voo? voo.cod : "" %> <%= voo? "disabled" : "" %>>
+                <label for="paisOrigemInput">Código do voo</label>
+              </div>
+            </div>
+          </div>
+          <div class="row my-1 d-flex justify-content-center">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 text-center">
+              <button type="submit" class="btn btn-primary" <%= voo? "disabled" : "" %>>
+                Buscar voo
+              </button>
+            </div>
+          </div>
+        </form>
+        <% if (codVoo && !voo) { %>
+        <div class="row mt-2 d-flex justify-content-center">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+            <div class="alert alert-warning text-center" role="alert">
+              Voo não encontrado.
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <% if (voo) { %>
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa-solid fa-user me-1"></i> Buscar passageiro
+      </div>
+      <div class="card-body">
+        <form action="/reservas/cadastrar" method="get" autocomplete="off">
+          <input type="hidden" name="codVoo" value=<%= voo.cod %>>
+          <div class="row my-1 d-flex justify-content-center">
+            <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="paisOrigemInput" required placeholder="País de origem do voo" name="cpfPassageiro" value=<%= passageiro ? passageiro.cpf : "" %> <%= passageiro ? "disabled" : "" %>>
+                <label for="paisOrigemInput">CPF do passageiro</label>
+              </div>
+            </div>
+          </div>
+          <div class="row my-1 d-flex justify-content-center">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 text-center">
+              <button type="submit" class="btn btn-primary" <%= passageiro? "disabled" : "" %>>
+                Buscar passageiro
+              </button>
+            </div>
+          </div>
+        </form>
+        <% if (cpfPassageiro && !passageiro) { %>
+        <div class="row mt-2 d-flex justify-content-center">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+            <div class="alert alert-warning text-center" role="alert">
+              Passageiro não encontrado.
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    </div>
+    <% } %>
+
+  </div>
+</body>
+
+</html>
