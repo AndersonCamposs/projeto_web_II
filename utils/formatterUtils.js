@@ -7,8 +7,7 @@ function formatDate(date) {
 
 function formatHour(date) {
     const d = new Date(date);
-    return `${d.getUTCHours().toString().padStart(2, "0")}:
-        ${d.getUTCMinutes().toString().padStart(2, "0")}`;
+    return `${d.getUTCHours().toString().padStart(2, "0")}:${d.getUTCMinutes().toString().padStart(2, "0")}`;
 }
 
 module.exports = { formatDate, formatHour };
