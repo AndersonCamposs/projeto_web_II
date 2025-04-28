@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const vooSchema = Schema({
+    cod: { type: String, required: true },
     paisOrigem: { type: String, required: true },
     estadoOrigem: { type: String, required: true },
     cidadeOrigem: { type: String, required: true },
