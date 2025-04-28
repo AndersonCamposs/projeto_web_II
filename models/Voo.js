@@ -10,7 +10,6 @@ const vooSchema = Schema({
     estadoDestino: { type: String, required: true },
     cidadeDestino: { type: String, required: true },
     data: { type: Date, required: true },
-    hora: { type: String, required: true },
     tipoVoo: {
         type: String,
         enum: ["Nacional", "Internacional"],
