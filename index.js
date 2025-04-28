@@ -17,6 +17,7 @@ const Passageiro = require("./models/Passageiro");
 const Voo = require("./models/Voo");
 
 const { formatDate, formatHour } = require("./utils/formatterUtils");
+const { gerarCodigo } = require("./utils/nanoidUtils");
 
 app.get("/alunos", async (req, res) => {
     const status = req.query.s;
@@ -107,7 +108,6 @@ app.post("/passageiros", async (req, res) => {
 app.get("/voos", async (req, res) => {
     const s = req.query.s;
     const listaVoos = await Voo.find();
-
     res.render("voo/relatorio", { listaVoos, s, formatDate, formatHour });
 });
 
@@ -138,6 +138,7 @@ app.post("/voos", async (req, res) => {
         hora,
     } = req.body;
     const novoVoo = new Voo({
+        cod: await gerarCodigo(5),
         paisOrigem,
         estadoOrigem,
         cidadeOrigem,

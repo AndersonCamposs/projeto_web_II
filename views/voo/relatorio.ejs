@@ -19,21 +19,19 @@
         <table class="table table-hover">
           <thead>
             <tr>
+              <th scope="col">Cód.</th>
               <th scope="col">Origem</th>
               <th scope="col">Destino</th>
               <th scope="col">Data</th>
-              <th scope="col">Hora</th>
-              <th scope="col">Tipo Voo</th>
               <th scope="col">Ações</th>
             </tr>
           </thead>
           <tbody>
             <% listaVoos.forEach((voo) => { %>
+            <td><%= voo.cod %></td>
             <td><%= `${voo.cidadeOrigem} - ${voo.estadoOrigem}, ${voo.paisOrigem}` %></td>
             <td><%= `${voo.cidadeDestino} - ${voo.estadoDestino}, ${voo.paisDestino}` %></td>
             <td> <%=formatDate(voo.data)%> </td>
-            <td> <%= formatHour(voo.data) %> </td>
-            <td><%= voo.tipoVoo %></td>
             <td>
               <a href="/voos/<%= voo._id%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes do voo">
                 <i class="fa-solid fa-eye"></i>
