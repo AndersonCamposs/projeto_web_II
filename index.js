@@ -16,7 +16,7 @@ const Aluno = require("./models/Aluno");
 const Passageiro = require("./models/Passageiro");
 const Voo = require("./models/Voo");
 
-const { formatDate } = require("./utils/formatterUtils");
+const { formatDate, formatHour } = require("./utils/formatterUtils");
 
 app.get("/alunos", async (req, res) => {
     const status = req.query.s;
@@ -108,11 +108,21 @@ app.get("/voos", async (req, res) => {
     const s = req.query.s;
     const listaVoos = await Voo.find();
 
-    res.render("voo/relatorio", { listaVoos, s, formatDate });
+    res.render("voo/relatorio", { listaVoos, s, formatDate, formatHour });
 });
 
 app.get("/voos/cadastrar", async (req, res) => {
     res.render("voo/cadastrar");
+});
+
+app.get("/voos/:_id", async (req, res) => {
+    const idString = req.params._id;
+    let idObject = null;
+    if (mongoose.Types.ObjectId.isValid(idString)) {
+        idObject = new mongoose.Types.ObjectId(idString);
+    }
+    const voo = await Voo.findOne({ _id: idObject });
+    res.render("voo/detalhe", { voo, formatDate, formatHour });
 });
 
 app.post("/voos", async (req, res) => {
@@ -134,8 +144,7 @@ app.post("/voos", async (req, res) => {
         paisDestino,
         estadoDestino,
         cidadeDestino,
-        data,
-        hora,
+        data: `${data}T${hora}Z`,
         tipoVoo,
     });
 
