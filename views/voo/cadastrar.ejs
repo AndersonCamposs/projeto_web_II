@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: "Cadastrar voo" }) %>
+
+<body>
+  <%- include('../partials/navBar') %>
+  <div class="container">
+    <p class="text-center fs-3 my-3">Adicionar voo</p>
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa-solid fa-plane-departure"></i> Preencha os dados do voo
+      </div>
+      <div class="card-body">
+        <form action="/voos" method="post">
+          <i class="fa-solid fa-house"></i> Dados de origem
+          <div class="row my-3">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="paisOrigemInput" required placeholder="País de origem do voo" name="paisOrigem">
+                <label for="paisOrigemInput">País de origem do voo</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="estadoOrigemInput" required placeholder="Estado de origem do voo" name="estadoOrigem">
+                <label for="estadoOrigemInput">Estado de origem do voo</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="cidadeOrigemInput" required placeholder="Cidade de origem do voo" name="cidadeOrigem">
+                <label for="cidadeOrigemInput">Cidade de origem do voo</label>
+              </div>
+            </div>
+          </div>
+
+          <i class="fa-solid fa-location-dot"></i> Dados de destino
+          <div class="row my-3">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="paisDestinoInput" required placeholder="País de destino do voo" name="paisDestino">
+                <label for="paisDestinoInput">País de destino do voo</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="estadoDestinoInput" required placeholder="Estado de destino do voo" name="estadoDestino">
+                <label for="estadoDestinoInput">Estado de destino do voo</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="cidadeDestinoInput" required placeholder="Cidade de destino do voo" name="cidadeDestino">
+                <label for="cidadeDestinoInput">Cidade de destino do voo</label>
+              </div>
+            </div>
+          </div>
+
+          <i class="fa-solid fa-tag"></i> Informações adicionais
+          <div class="row my-3">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+              <div class="input-group mb-3">
+                <label class="input-group-text" for="selectTipoVoo">Tipo voo</label>
+                <select class="form-select" id="selectTipoVoo" required name="tipoVoo">
+                  <option value="" selected disabled>Escolha o tipo do voo</option>
+                  <option value="Nacional">Nacional</option>
+                  <option value="Internacional">Internacional</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <i class="fa-solid fa-calendar-days"></i> Data e hora
+          <div class="row my-3">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+              <div class="form-floating mb-3">
+                <input type="date" class="form-control" id="dataVooInput" required placeholder="Data do voo" name="data">
+                <label for="dataVooInput">Data do voo</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+              <div class="form-floating mb-3">
+                <input type="time" class="form-control" id="horaVooInput" required placeholder="Data do voo" name="hora">
+                <label for="horaVooInput">Hora do voo</label>
+                <p class="text-danger ms-1">*Formato 24 horas.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-primary px-4">Salvar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

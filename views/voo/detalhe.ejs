@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: "Detalhe de voo" }) %>
+
+<body>
+  <%- include('../partials/navBar') %>
+  <div class="container mt-3">
+    <% if (!voo) { %>
+    <div class="alert alert-warning text-center" role="alert">
+      Voo não encontrado. Para listar todos os voos, <a href="/voos" class="alert-link">clique aqui</a>.
+    </div>
+    <% } else { %>
+    <p class="text-center fs-3 my-3">Informações do voo</p>
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa-solid fa-house"></i> Informações de origem
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+            <div class="input-group mb-3">
+              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">País</button>
+              <input type="text" class="form-control" value="<%= voo.paisOrigem%>" aria-describedby="button-addon1" readonly>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+            <div class="input-group mb-3">
+              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">Estado</button>
+              <input type="text" class="form-control" value="<%= voo.estadoOrigem%>" aria-describedby="button-addon1" readonly>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+            <div class="input-group mb-3">
+              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">Cidade</button>
+              <input type="text" class="form-control" value="<%= voo.cidadeOrigem%>" aria-describedby="button-addon1" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa-solid fa-location-dot"></i> Informações de destino
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+            <div class="input-group mb-3">
+              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">País</button>
+              <input type="text" class="form-control" value="<%= voo.paisDestino%>" aria-describedby="button-addon1" readonly>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+            <div class="input-group mb-3">
+              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">Estado</button>
+              <input type="text" class="form-control" value="<%= voo.estadoDestino%>" aria-describedby="button-addon1" readonly>
+            </div>
+          </div>
+
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+            <div class="input-group mb-3">
+              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">Cidade</button>
+              <input type="text" class="form-control" value="<%= voo.cidadeDestino%>" aria-describedby="button-addon1" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa-solid fa-tag"></i> Informações adicionais
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+            <div class="input-group mb-3">
+              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">Tipo</button>
+              <input type="text" class="form-control" value="<%= voo.tipoVoo%>" aria-describedby="button-addon1" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa-solid fa-calendar-days"></i> Informações de data e hora
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+            <div class="input-group mb-3">
+              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">Data</button>
+              <input type="text" class="form-control" value="<%= formatDate(voo.data) %>" aria-describedby="button-addon1" readonly>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+            <div class="input-group mb-3">
+              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">Hora</button>
+              <input type="text" class="form-control" value="<%= formatHour(voo.data) %>" aria-describedby="button-addon1" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>
+      <a href="/voos" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+        <i class="fa-solid fa-arrow-left"></i> Voltar para listagem
+      </a>
+    </p>
+    <% } %>
+  </div>
+
+</body>
+
+</html>
