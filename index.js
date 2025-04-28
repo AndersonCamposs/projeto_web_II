@@ -51,6 +51,8 @@ app.get("/", (req, res) => {
 });
 
 // conteúdos pertinentes ao projeto
+
+// passageiros
 app.get("/passageiros", async (req, res) => {
     const s = req.query.s;
     const listaPassageiros = await Passageiro.find();
@@ -105,6 +107,8 @@ app.post("/passageiros", async (req, res) => {
     res.redirect("/passageiros?s=1");
 });
 
+// voos
+
 app.get("/voos", async (req, res) => {
     const s = req.query.s;
     const listaVoos = await Voo.find();
@@ -152,6 +156,20 @@ app.post("/voos", async (req, res) => {
     await novoVoo.save();
 
     res.redirect("/voos?s=1");
+});
+
+// reservas
+app.get("/reservas", async (req, res) => {
+    res.send("/reservas");
+});
+
+app.get("/reservas/cadastrar", async (req, res) => {
+    const codVoo = req.query.codVoo;
+    const cpfPassageiro = req.query.cpfPassageiro;
+    const voo = await Voo.findOne({ cod: codVoo });
+    const passageiro = await Passageiro.findOne({ cpf: cpfPassageiro });
+
+    res.render("reserva/cadastrar", { codVoo, voo, cpfPassageiro, passageiro });
 });
 
 app.use((req, res) => {
