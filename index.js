@@ -164,12 +164,8 @@ app.get("/reservas", async (req, res) => {
 });
 
 app.get("/reservas/cadastrar", async (req, res) => {
-    const codVoo = req.query.codVoo;
-    const cpfPassageiro = req.query.cpfPassageiro;
-    const voo = await Voo.findOne({ cod: codVoo });
-    const passageiro = await Passageiro.findOne({ cpf: cpfPassageiro });
-
-    res.render("reserva/cadastrar", { codVoo, voo, cpfPassageiro, passageiro });
+    const listaVoos = await Voo.find({ data: { $gt: new Date() } });
+    res.render("reserva/cadastrar", { listaVoos: JSON.stringify(listaVoos) });
 });
 
 app.use((req, res) => {
