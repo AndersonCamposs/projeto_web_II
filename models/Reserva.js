@@ -6,12 +6,12 @@ const reservaSchema = Schema(
     {
         cod: { type: String, required: true },
         valor: { type: Number, required: true }, 
-        formaPagamento: {
+        tipoPagamento: {
             type: String,
             enum: ["PIX", "CARTÃO CRÉDITO/DÉBITO", "DINHEIRO"],
             default: "DINHEIRO"
         },
-        pasageiro: {
+        passageiro: {
             type: mongoose.Types.ObjectId,
             ref: "Passageiro",
         },
