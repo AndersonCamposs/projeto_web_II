@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: "Relatório de reservas" }) %>
+
+<body>
+  <%- include('../partials/navBar') %>
+  <div class="container mt-3">
+    <% if (listaReservas.length === 0) { %>
+    <div class="alert alert-warning text-center" role="alert">
+      Não há reservas cadastradas. Para adicionar reservas, <a href="/reservas/cadastrar" class="alert-link">clique aqui</a>.
+    </div>
+    <% } else { %>
+    <p class="text-center fs-3 my-3">Lista de Reservas</p>
+    <div class="card">
+      <div class="card-header">
+        <i class="fa-solid fa-list"></i> Listagem de reservas cadastrados
+      </div>
+      <div class="card-body px-0">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">Cód.</th>
+              <th scope="col">Valor (R$)</th>
+              <th scope="col">Passageiro</th>
+              <th scope="col">Cód. do Voo</th>
+              <th scope="col">Data da reserva</th>
+              <th scope="col">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% listaReservas.forEach((reserva) => { %>
+            <td><%= reserva.cod %></td>
+            <td><%= reserva.valor %></td>
+            <td><%= `${reserva.passageiro.nome}, ${reserva.passageiro.cpf}` %></td>
+            <td><%= reserva.voo.cod %></td>
+            <td> <%=formatDate(reserva.created_at)%> </td>
+            <td>
+              <a href="/reservas/<%= reserva.cod%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes da reserva">
+                <i class="fa-solid fa-eye"></i>
+              </a>
+            </td>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+      <div class="card-footer">
+        <p class="my-1">
+          <a href="/reservas/cadastrar" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+            <i class="fa-solid fa-plus"></i> Adicionar reserva
+          </a>
+        </p>
+      </div>
+    </div>
+    <% } %>
+  </div>
+</body>
+
+</html>
