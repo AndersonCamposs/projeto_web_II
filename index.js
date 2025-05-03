@@ -15,9 +15,11 @@ mongoose.connect(
 const Aluno = require("./models/Aluno");
 const Passageiro = require("./models/Passageiro");
 const Voo = require("./models/Voo");
+const Voo = require("./models/Reserva");
 
 const { formatDate, formatHour } = require("./utils/formatterUtils");
 const { gerarCodigo } = require("./utils/nanoidUtils");
+const Reserva = require("./models/Reserva");
 
 app.get("/alunos", async (req, res) => {
     const status = req.query.s;
@@ -171,13 +173,27 @@ app.post("/voos", async (req, res) => {
 
 // reservas
 app.get("/reservas", async (req, res) => {
-    res.send("/reservas");
+    const s = req.query.s;
+    const listaReservas = await Reserva.find();
+    res.render("reserva/relatorio", { listaVoos, s});
 });
 
 app.get("/reservas/cadastrar", async (req, res) => {
     const listaVoos = await Voo.find({ data: { $gt: new Date() } });
     res.render("reserva/cadastrar", { listaVoos: JSON.stringify(listaVoos) });
 });
+
+app.post("/reservas", async (req, res) => {
+    const { idVoo, idPassageiro, valorReserva, formaPagamento } = req.body;
+    const novaReserva = new Reserva({ 
+        cod: await gerarCodigo(5),
+        valor: valorReserva,
+        formaPagamento,
+        passageiro: idPassageiro,
+        voo: idVoo
+    })
+    res.redirect("/reservas?s=1");
+})
 
 app.use((req, res) => {
     res.status(404).render("404");
