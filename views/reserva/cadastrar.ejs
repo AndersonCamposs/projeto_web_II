@@ -20,11 +20,44 @@
               </select>
             </div>
           </div>
-          <div class="col-12 col-sm-12 col-md-5 col-lg-3">
-            <button class="btn btn-secondary">Escolher este voo</button>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+            <div class="alert alert-warning text-center" id="statusEscolhaVoo">
+              Selecione um voo para prosseguir com a reserva.
+            </div>
           </div>
         </div>
+      </div>
+    </div>
 
+    <div class="card mb-3 d-none" id="cardBuscaPassageiro">
+      <div class="card-header">
+        <i class="fa-solid fa-person-walking-luggage"></i> Buscar Passageiro
+      </div>
+      <div class="card-body">
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="input-group mb-3">
+              <div class="form-floating mb-1">
+                <input type="text" class="form-control" id="cpfPassageiroInput" required placeholder="CPF do passageiro">
+                <label for="cpfPassageiroInput">CPF do passageiro</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-sm-12 col-md-8 col-lg-6 d-flex justify-content-center">
+            <button id="btnBuscarPassageiro" class="btn btn-primary">Buscar</button>
+          </div>
+        </div>
+        <div class="row d-flex justify-content-center mt-3 d-none" id="statusBuscaPassageiro">
+          <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+            <div class="alert alert-warning text-center">
+              Passageiro não encontrado.
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -37,12 +70,41 @@
       let html = selectVooReserva.innerHTML;
       listaVoos.forEach((voo) => {
         html = html + `<option value=${voo.cod}>` +
-          `${voo.cidadeOrigem} - ${voo.cidadeDestino}` +
+          `${voo.cidadeOrigem} - ${voo.cidadeDestino} (${formatarDataHoraVoo(voo.data)})` +
           `</option>`
       });
       selectVooReserva.innerHTML = html;
 
     })
+
+    document.querySelector("#selectVooReserva").addEventListener("change", () => {
+      const statusEscolhaVoo = document.querySelector("#statusEscolhaVoo");
+      statusEscolhaVoo.classList.add("d-none");
+      document.querySelector("#cardBuscaPassageiro").classList.remove("d-none");
+    })
+
+    document.querySelector("#btnBuscarPassageiro").addEventListener("click", async () => {
+      const value = document.querySelector("#cpfPassageiroInput").value;
+      const cpf = value ? value : null;
+      try {
+        const res = await fetch(`http://localhost:5500/passageiros/search/${cpf}`);
+        const json = await res.json();
+        if (res.status === 404) {
+          document.querySelector("#statusBuscaPassageiro").classList.remove("d-none");
+        } else {
+
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    })
+
+    function formatarDataHoraVoo(d) {
+      const date = new Date(d);
+      return `${date.getDate().toString().padStart(2, "0")}/${(date.getMonth() + 1)
+        .toString().padStart(2, "0")}/${date.getFullYear().toString()}, ${date.getUTCHours().toString().padStart(2, "0")}:
+        ${date.getUTCMinutes().toString().padStart(2, "0")}`;
+    }
   </script>
 </body>
 

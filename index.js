@@ -67,6 +67,17 @@ app.get("/passageiros/cadastrar", (req, res) => {
     res.render("passageiro/cadastrar");
 });
 
+// endpoint para retornar o json do passageiro a partir do cpf
+app.get("/passageiros/search/:cpf", async (req, res) => {
+    const cpf = req.params.cpf;
+    const passageiro = await Passageiro.findOne({ cpf });
+    if (passageiro) {
+        res.status(200).json(passageiro);
+    } else {
+        res.status(404).json({ mensagem: "Passageiro não encontrado." });
+    }
+});
+
 app.get("/passageiros/:_id", async (req, res) => {
     const idString = req.params._id;
     let idObject = null;
