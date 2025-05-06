@@ -1,9 +1,31 @@
-const AlunoModel = require("../model/Aluno");
+const AlunoModel = require("../models/Aluno");
 
 class AlunoController {
-    static async listar(req, res) {
-        const alunos = await AlunoModel.find();
-        res.render("aluno/relatorio", { alunos });
+    static async relatorio(req, res) {
+        const status = req.query.s;
+        const lista = await AlunoModel.find();
+        res.render("aluno/relatorio", { lista, status });
+    }
+
+    static async cadastrar(req, res) {
+        res.render("aluno/cadastrar");
+    }
+
+    static async salvar(req, res) {
+        const { matricula, nome, curso } = req.body;
+        const novoAluno = new AlunoModel({
+            matricula,
+            nome,
+            curso,
+        });
+        await novoAluno.save();
+        res.redirect("/alunos?s=1");
+    }
+
+    static async detalhar(req, res) {
+        const matricula = Number(req.params.matricula);
+        const aluno = await AlunoModel.findOne({ matricula });
+        res.render("aluno/detalhe", { aluno });
     }
 }
 
