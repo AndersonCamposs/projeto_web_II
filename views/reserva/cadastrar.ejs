@@ -6,7 +6,7 @@
   <%- include('../partials/navBar') %>
   <div class="container">
     <p class="text-center fs-3 my-3">Realizar reserva</p>
-    <div class="card mb-3">
+    <div class="card mb-3" id="cardbuscaVoo">
       <div class="card-header">
         <i class="fa-solid fa-plane-departure"></i> Buscar voo
       </div>
@@ -61,15 +61,68 @@
       </div>
     </div>
 
+    <div class="card mb-3 d-none" id="cardReserva">
+      <div class="card-header">
+        <i class="fa-solid fa-ticket"></i> Realizar reserva
+      </div>
+      <div class="card-body">
+        <form action="/reservas" method="post">
+          <input type="hidden" name="idVoo" id="idVoo">
+          <input type="hidden" name="idPassageiro" id="idPassageiro">
+
+
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+              <div class="input-group mb-3">
+                <div class="form-floating mb-1">
+                  <input type="number" class="form-control" id="valorReservaInput" required placeholder="Valor da reserva" name="valorReserva">
+                  <label for="valorReservaInput">Valor da reserva</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+              <div class="input-group mb-3">
+                <div class="form-floating mb-1">
+                  <select class="form-select" id="tipoPagamentoSelect" aria-label="Floating label select example" required name="tipoPagamento">
+                    <option selected value="">Selecione uma opção de pagamento</option>
+                    <option value="PIX">Pix</option>
+                    <option value="CARTÃO CRÉDITO/DÉBITO">Cartão de crédito/débito</option>
+                    <option value="DINHEIRO">Dinheiro</option>
+                  </select>
+                  <label for="tipoPagamentoSelect">Forma de pagamento</label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-sm-4 col-md-4 col-lg-4 d-flex justify-content-center">
+              <button type="submit" class="btn btn-primary">Confirmar</button>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-4 col-md-4 col-lg-3">
+        <button class="btn btn-danger" onclick="location.reload()">Limpar</button>
+      </div>
+    </div>
 
   </div>
   <script>
+    const CARD_BUSCA_VOO = document.querySelector("#cardBuscaVoo");
+    const CARD_BUSCA_PASSAGEIRO = document.querySelector("#cardBuscaPassageiro");
+    const CARD_RESERVA = document.querySelector("#cardReserva");
+
     document.addEventListener('DOMContentLoaded', () => {
       const selectVooReserva = document.querySelector("#selectVooReserva");
       const listaVoos = JSON.parse(`<%- listaVoos %>`);
       let html = selectVooReserva.innerHTML;
       listaVoos.forEach((voo) => {
-        html = html + `<option value=${voo.cod}>` +
+        html = html + `<option value=${voo._id}>` +
           `${voo.cidadeOrigem} - ${voo.cidadeDestino} (${formatarDataHoraVoo(voo.data)})` +
           `</option>`
       });
@@ -77,10 +130,11 @@
 
     })
 
-    document.querySelector("#selectVooReserva").addEventListener("change", () => {
+    document.querySelector("#selectVooReserva").addEventListener("change", (e) => {
       const statusEscolhaVoo = document.querySelector("#statusEscolhaVoo");
       statusEscolhaVoo.classList.add("d-none");
-      document.querySelector("#cardBuscaPassageiro").classList.remove("d-none");
+      CARD_BUSCA_PASSAGEIRO.classList.remove("d-none");
+      document.querySelector("#idVoo").value = e.target.value;
     })
 
     document.querySelector("#btnBuscarPassageiro").addEventListener("click", async () => {
@@ -92,7 +146,9 @@
         if (res.status === 404) {
           document.querySelector("#statusBuscaPassageiro").classList.remove("d-none");
         } else {
-
+          document.querySelector("#statusBuscaPassageiro").classList.add("d-none");
+          CARD_RESERVA.classList.remove("d-none");
+          document.querySelector("#idPassageiro").value = json._id;
         }
       } catch (e) {
         console.log(e);
