@@ -12,8 +12,8 @@ mongoose.connect(
     "mongodb+srv://admin:acs1_admin@cluster0.0sacf0g.mongodb.net/projeto_web_II?retryWrites=true&w=majority&appName=Cluster0"
 );
 
-const Aluno = require("./models/Aluno");
 const alunoRoutes = require("./routes/alunoRoutes");
+const passageiroRoutes = require("./routes/passageiroRoutes");
 const Passageiro = require("./models/Passageiro");
 const Voo = require("./models/Voo");
 const Reserva = require("./models/Reserva");
@@ -26,74 +26,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/alunos", alunoRoutes);
+app.use("/passageiros", passageiroRoutes);
 
 // conteúdos pertinentes ao projeto
-
-// passageiros
-app.get("/passageiros", async (req, res) => {
-    const s = req.query.s;
-    const listaPassageiros = await Passageiro.find();
-    res.render("passageiro/relatorio", {
-        listaPassageiros,
-        s,
-        formatDate,
-    });
-});
-
-app.get("/passageiros/cadastrar", (req, res) => {
-    res.render("passageiro/cadastrar");
-});
-
-// endpoint para retornar o json do passageiro a partir do cpf
-app.get("/passageiros/search/:cpf", async (req, res) => {
-    const cpf = req.params.cpf;
-    const passageiro = await Passageiro.findOne({ cpf });
-    if (passageiro) {
-        res.status(200).json(passageiro);
-    } else {
-        res.status(404).json({ mensagem: "Passageiro não encontrado." });
-    }
-});
-
-app.get("/passageiros/:_id", async (req, res) => {
-    const idString = req.params._id;
-    let idObject = null;
-    if (mongoose.Types.ObjectId.isValid(idString)) {
-        idObject = new mongoose.Types.ObjectId(idString);
-    }
-    const passageiro = await Passageiro.findOne({ _id: idObject });
-    res.render("passageiro/detalhe", { passageiro, formatDate });
-});
-
-app.post("/passageiros", async (req, res) => {
-    const {
-        nome,
-        cpf,
-        rg,
-        dataNascimento,
-        telefone,
-        estado,
-        cidade,
-        logradouro,
-        bairro,
-        numeroResidencia,
-    } = req.body;
-    const novoPassageiro = new Passageiro({
-        nome,
-        cpf,
-        rg,
-        dataNascimento,
-        telefone,
-        estado,
-        cidade,
-        logradouro,
-        bairro,
-        numeroResidencia,
-    });
-    await novoPassageiro.save();
-
-    res.redirect("/passageiros?s=1");
-});
 
 // voos
 
