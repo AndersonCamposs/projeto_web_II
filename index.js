@@ -14,6 +14,7 @@ mongoose.connect(
 
 const alunoRoutes = require("./routes/alunoRoutes");
 const passageiroRoutes = require("./routes/passageiroRoutes");
+const vooRoutes = require("./routes/vooRoutes");
 const Passageiro = require("./models/Passageiro");
 const Voo = require("./models/Voo");
 const Reserva = require("./models/Reserva");
@@ -27,59 +28,9 @@ app.get("/", (req, res) => {
 
 app.use("/alunos", alunoRoutes);
 app.use("/passageiros", passageiroRoutes);
+app.use("/voos", vooRoutes);
 
 // conteúdos pertinentes ao projeto
-
-// voos
-
-app.get("/voos", async (req, res) => {
-    const s = req.query.s;
-    const listaVoos = await Voo.find();
-    res.render("voo/relatorio", { listaVoos, s, formatDate, formatHour });
-});
-
-app.get("/voos/cadastrar", async (req, res) => {
-    res.render("voo/cadastrar");
-});
-
-app.get("/voos/:_id", async (req, res) => {
-    const idString = req.params._id;
-    let idObject = null;
-    if (mongoose.Types.ObjectId.isValid(idString)) {
-        idObject = new mongoose.Types.ObjectId(idString);
-    }
-    const voo = await Voo.findOne({ _id: idObject });
-    res.render("voo/detalhe", { voo, formatDate, formatHour });
-});
-
-app.post("/voos", async (req, res) => {
-    const {
-        paisOrigem,
-        estadoOrigem,
-        cidadeOrigem,
-        paisDestino,
-        estadoDestino,
-        cidadeDestino,
-        tipoVoo,
-        data,
-        hora,
-    } = req.body;
-    const novoVoo = new Voo({
-        cod: await gerarCodigo(5),
-        paisOrigem,
-        estadoOrigem,
-        cidadeOrigem,
-        paisDestino,
-        estadoDestino,
-        cidadeDestino,
-        data: `${data}T${hora}Z`,
-        tipoVoo,
-    });
-
-    await novoVoo.save();
-
-    res.redirect("/voos?s=1");
-});
 
 // reservas
 app.get("/reservas", async (req, res) => {
