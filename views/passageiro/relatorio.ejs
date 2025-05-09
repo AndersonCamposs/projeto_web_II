@@ -27,14 +27,16 @@
           </thead>
           <tbody>
             <% listaPassageiros.forEach((passageiro) => { %>
-            <td><%= passageiro.nome %></td>
-            <td><%= passageiro.cpf %></td>
-            <td><%=formatDate(passageiro.dataNascimento)%></td>
-            <td>
-              <a href="/passageiros/<%= passageiro._id%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes do passageiro">
-                <i class="fa-solid fa-eye"></i>
-              </a>
-            </td>
+            <tr>
+              <td><%= passageiro.nome %></td>
+              <td><%= passageiro.cpf %></td>
+              <td><%=formatDate(passageiro.dataNascimento)%></td>
+              <td>
+                <a href="/passageiros/<%= passageiro._id%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes do passageiro">
+                  <i class="fa-solid fa-eye"></i>
+                </a>
+              </td>
+            </tr>
             <% }) %>
           </tbody>
         </table>

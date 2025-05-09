@@ -29,16 +29,18 @@
           </thead>
           <tbody>
             <% listaReservas.forEach((reserva) => { %>
-            <td><%= reserva.cod %></td>
-            <td><%= reserva.valor %></td>
-            <td><%= `${reserva.passageiro.nome}, ${reserva.passageiro.cpf}` %></td>
-            <td><%= reserva.voo.cod %></td>
-            <td> <%=formatDate(reserva.created_at)%> </td>
-            <td>
-              <a href="/reservas/<%= reserva.cod%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes da reserva">
-                <i class="fa-solid fa-eye"></i>
-              </a>
-            </td>
+            <tr>
+              <td><%= reserva.cod %></td>
+              <td><%= reserva.valor %></td>
+              <td><%= `${reserva.passageiro.nome}, ${reserva.passageiro.cpf}` %></td>
+              <td><%= reserva.voo.cod %></td>
+              <td> <%=formatDate(reserva.created_at)%> </td>
+              <td>
+                <a href="/reservas/<%= reserva.cod%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes da reserva">
+                  <i class="fa-solid fa-eye"></i>
+                </a>
+              </td>
+            </tr>
             <% }) %>
           </tbody>
         </table>
