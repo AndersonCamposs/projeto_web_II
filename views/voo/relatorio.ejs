@@ -28,15 +28,17 @@
           </thead>
           <tbody>
             <% listaVoos.forEach((voo) => { %>
-            <td><%= voo.cod %></td>
-            <td><%= `${voo.cidadeOrigem} - ${voo.estadoOrigem}, ${voo.paisOrigem}` %></td>
-            <td><%= `${voo.cidadeDestino} - ${voo.estadoDestino}, ${voo.paisDestino}` %></td>
-            <td> <%=formatDate(voo.data)%> </td>
-            <td>
-              <a href="/voos/<%= voo._id%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes do voo">
-                <i class="fa-solid fa-eye"></i>
-              </a>
-            </td>
+            <tr>
+                <td><%= voo.cod %></td>
+                <td><%= `${voo.cidadeOrigem} - ${voo.estadoOrigem}, ${voo.paisOrigem}` %></td>
+                <td><%= `${voo.cidadeDestino} - ${voo.estadoDestino}, ${voo.paisDestino}` %></td>
+                <td> <%=formatDate(voo.data)%> </td>
+                <td>
+                    <a href="/voos/<%= voo._id%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes do voo">
+                    <i class="fa-solid fa-eye"></i>
+                    </a>
+                </td>
+            </tr>
             <% }) %>
           </tbody>
         </table>

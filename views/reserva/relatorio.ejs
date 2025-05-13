@@ -29,16 +29,18 @@
           </thead>
           <tbody>
             <% listaReservas.forEach((reserva) => { %>
-            <td><%= reserva.cod %></td>
-            <td><%= reserva.valor %></td>
-            <td><%= `${reserva.passageiro.nome}, ${reserva.passageiro.cpf}` %></td>
-            <td><%= reserva.voo.cod %></td>
-            <td> <%=formatDate(reserva.created_at)%> </td>
-            <td>
-              <a href="/reservas/<%= reserva.cod%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes da reserva">
-                <i class="fa-solid fa-eye"></i>
-              </a>
-            </td>
+            <tr>
+              <td><%= reserva.cod %></td>
+              <td><%= reserva.valor %></td>
+              <td><%= `${reserva.passageiro.nome}, ${reserva.passageiro.cpf}` %></td>
+              <td><%= reserva.voo.cod %></td>
+              <td> <%=formatDate(reserva.created_at)%> </td>
+              <td>
+                <a href="/reservas/<%= reserva.cod%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes da reserva">
+                  <i class="fa-solid fa-eye"></i>
+                </a>
+              </td>
+            </tr>
             <% }) %>
           </tbody>
         </table>
@@ -52,7 +54,35 @@
       </div>
     </div>
     <% } %>
+    <div class="toast-container position-fixed top-0 end-0 p-3">
+      <div id="addedSuccessfullyToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header text-success">
+          <i class="fa-solid fa-square-check me-2"></i>
+          <strong class="me-auto">Adicionado com sucesso</strong>
+          <small> <%= `${new Date().getHours().toString().padStart(2, "0")}:${new Date().getMinutes().toString().padStart(2, "0")}` %> </small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+          A reserva foi adicionada com sucesso e já encontra-se na lista.
+        </div>
+      </div>
+    </div>
   </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const s = "<%= s %>";
+      const delay = 10000
+      if (s === "1") {
+        const addedSuccessfullyToast = document.querySelector("#addedSuccessfullyToast");
+        const toast = bootstrap.Toast.getOrCreateInstance(addedSuccessfullyToast, {
+          delay
+        });
+        toast.show();
+      }
+    })
+  </script>
+</body>
 </body>
 
 </html>
