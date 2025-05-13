@@ -30,11 +30,12 @@ class PassageiroController {
             bairro,
             numeroResidencia,
         } = req.body;
+        
         const novoPassageiro = new Passageiro({
             nome,
             cpf,
             rg,
-            dataNascimento,
+            dataNascimento: new Date(dataNascimento),
             telefone,
             estado,
             cidade,
