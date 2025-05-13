@@ -15,9 +15,7 @@ mongoose.connect(
 const alunoRoutes = require("./routes/alunoRoutes");
 const passageiroRoutes = require("./routes/passageiroRoutes");
 const vooRoutes = require("./routes/vooRoutes");
-const Passageiro = require("./models/Passageiro");
-const Voo = require("./models/Voo");
-const Reserva = require("./models/Reserva");
+const reservaRoutes = require("./routes/reservaRoutes")
 
 const { formatDate, formatHour } = require("./utils/formatterUtils");
 const { gerarCodigo } = require("./utils/nanoidUtils");
@@ -29,43 +27,7 @@ app.get("/", (req, res) => {
 app.use("/alunos", alunoRoutes);
 app.use("/passageiros", passageiroRoutes);
 app.use("/voos", vooRoutes);
-
-// conteúdos pertinentes ao projeto
-
-// reservas
-app.get("/reservas", async (req, res) => {
-    const s = req.query.s;
-    const listaReservas = await Reserva.find()
-        .populate("passageiro")
-        .populate("voo");
-    res.render("reserva/relatorio", { listaReservas, s, formatDate });
-});
-
-app.get("/reservas/cadastrar", async (req, res) => {
-    const listaVoos = await Voo.find({ data: { $gt: new Date() } }); // lista de voos disponíveis
-    res.render("reserva/cadastrar", { listaVoos: JSON.stringify(listaVoos) });
-});
-
-app.get("/reservas/:cod", async (req, res) => {
-    const cod = req.params.cod;
-    const reserva = await Reserva.findOne({ cod })
-        .populate("passageiro")
-        .populate("voo");
-    res.render("reserva/detalhe", { reserva, formatDate, formatHour });
-});
-
-app.post("/reservas", async (req, res) => {
-    const { idVoo, idPassageiro, valorReserva, tipoPagamento } = req.body;
-    const novaReserva = new Reserva({
-        cod: await gerarCodigo(5),
-        valor: valorReserva,
-        tipoPagamento,
-        passageiro: idPassageiro,
-        voo: idVoo,
-    });
-    await novaReserva.save();
-    res.redirect("/reservas?s=1");
-});
+app.use("/reservas", reservaRoutes);
 
 app.use((req, res) => {
     res.status(404).render("404");
