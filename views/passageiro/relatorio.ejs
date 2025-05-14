@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<%- include('../partials/head', { title: "Relatório de passagiros" }) %>
+<%- include('../partials/head', { title: "Relatório de passageiros" }) %>
 
 <body>
   <%- include('../partials/navBar') %>
@@ -35,6 +35,31 @@
                 <a href="/passageiros/<%= passageiro._id%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes do passageiro">
                     <i class="fa-solid fa-eye"></i>
                 </a>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalExclusao_<%= passageiro._id %>">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modalExclusao_<%= passageiro._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalConfirmacaoExclusaoTitle" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="modalConfirmacaoExclusaoTitle">Confirmação de Exclusão</h1>
+                        </div>
+                        <div class="modal-body">
+                            Tem certeza que deseja excluir o passageiro <strong><%= passageiro.nome %></strong>, de CPF <strong><%= passageiro.cpf %></strong>?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" id="btnConfirmarDelecao" class="btn btn-primary" data-id-exclusao="<%= passageiro._id%>" onclick="excluirPassageiro(this)">
+                                Confirmar
+                            </button>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="/passageiros/cadastrar/<%= passageiro._id%>" class="btn btn-outline-success px-2" data-bs-toggle="tooltip" title="Editar dados do passageiro">
+                    <i class="fa-solid fa-pencil"></i>
+                </a>
                 </td>
             </tr>
             <% }) %>
@@ -51,27 +76,43 @@
     </div>
     <% } %>
     <div class="toast-container position-fixed top-0 end-0 p-3">
-      <div id="addedSuccessfullyToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div id="statusToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header text-success">
           <i class="fa-solid fa-square-check me-2"></i>
-          <strong class="me-auto">Adicionado com sucesso</strong>
+          <strong class="me-auto" id="toast-title"></strong>
           <small> <%= `${new Date().getHours().toString().padStart(2, "0")}:${new Date().getMinutes().toString().padStart(2, "0")}` %> </small>
           <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body">
-          O passageiro foi adicionado com sucesso e já encontra-se na lista.
+        <div class="toast-body" id="toast-body-content">
+          
         </div>
       </div>
     </div>
   </div>
 
   <script>
+    function excluirPassageiro(btn) {
+        const id = btn.dataset.idExclusao;
+        window.location.href = `/passageiros/delete/${id}`;
+    }
+
     document.addEventListener("DOMContentLoaded", () => {
       const s = "<%= s %>";
+      const toastTitle = document.querySelector("#toast-title");
+      const toastBodyContent = document.querySelector("#toast-body-content");
       const delay = 10000
+      const statusToast = document.querySelector("#statusToast");
       if (s === "1") {
-        const addedSuccessfullyToast = document.querySelector("#addedSuccessfullyToast");
-        const toast = bootstrap.Toast.getOrCreateInstance(addedSuccessfullyToast, {
+        toastTitle.innerHTML = "Adicionado com sucesso";
+        toastBodyContent.innerHTML = "O passageiro foi adicionado com sucesso e já encontra-se na lista.";
+        const toast = bootstrap.Toast.getOrCreateInstance(statusToast, {
+          delay
+        });
+        toast.show();
+      } else if (s === "2") {   
+        toastTitle.innerHTML = "Excluído com sucesso";
+        toastBodyContent.innerHTML = "O passageiro foi excluído com sucesso e não encontra-se mais na lista.";
+        const toast = bootstrap.Toast.getOrCreateInstance(statusToast, {
           delay
         });
         toast.show();
