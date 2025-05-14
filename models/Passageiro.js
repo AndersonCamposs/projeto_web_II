@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Reserva = require("./Reserva");
 
 const Schema = mongoose.Schema;
 
@@ -17,5 +18,17 @@ const passageiroSchema = Schema(
     },
     { timestamps: { createdAt: "created_at", updatedAt: "updated_at" } }
 );
+
+// deleta todas as reservas de voo daquele passageiro que será excluído
+passageiroSchema.pre("deleteOne", async function (next) {
+    const filtro = this.getFilter();
+    const passageiro = await this.model.findOne(filtro);
+
+    if (passageiro) {
+        await Reserva.deleteMany({ passageiro: passageiro._id });
+    }
+
+    next();
+});
 
 module.exports = mongoose.model("Passageiro", passageiroSchema);
