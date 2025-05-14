@@ -14,7 +14,13 @@ class PassageiroController {
     }
 
     static async cadastrar(req, res) {
-        res.render("passageiro/cadastrar");
+        const _id = req.params._id;
+        let passageiro = {};
+        if(_id) {
+            passageiro = await Passageiro.findOne({ _id });
+        }
+        
+        res.render("passageiro/cadastrar", { passageiro });
     }
 
     static async salvar(req, res) {
@@ -30,7 +36,7 @@ class PassageiroController {
             bairro,
             numeroResidencia,
         } = req.body;
-        
+
         const novoPassageiro = new Passageiro({
             nome,
             cpf,
@@ -66,6 +72,24 @@ class PassageiroController {
         }
         const passageiro = await Passageiro.findOne({ _id: idObject });
         res.render("passageiro/detalhe", { passageiro, formatDate });
+    }
+
+    static async deletar(req, res) {
+        const idString = req.params._id;
+        let idObject = null;
+        if (mongoose.Types.ObjectId.isValid(idString)) {
+            idObject = new mongoose.Types.ObjectId(idString);
+        }
+
+        await Passageiro.deleteOne({ _id: idObject });
+        res.redirect("/passageiros?s=2");
+    }
+
+    static async redirectUpdate(req, res) {
+        const _id = req.params._id;
+        const passageiro = await Passageiro.findOne({ _id });
+
+        res.render("passageiro/cadastrar", { passageiro });
     }
 }
 
