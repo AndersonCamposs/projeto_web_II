@@ -24,9 +24,10 @@ class PassageiroController {
   }
 
   static async salvar(req, res) {
-    const { nome, cpf, rg, dataNascimento, telefone, estado, cidade, logradouro, bairro, numeroResidencia } = req.body;
-
-    const novoPassageiro = new Passageiro({
+    const { _id, nome, cpf, rg, dataNascimento, telefone, estado, cidade, logradouro, bairro, numeroResidencia } =
+      req.body;
+    let status = '';
+    const obj = {
       nome,
       cpf,
       rg,
@@ -37,10 +38,18 @@ class PassageiroController {
       logradouro,
       bairro,
       numeroResidencia,
-    });
-    await novoPassageiro.save();
+    };
 
-    res.redirect('/passageiros?s=1');
+    if (_id) {
+      status = 3;
+      await Passageiro.updateOne({ _id }, obj);
+    } else {
+      status = 1;
+      const novoPassageiro = new Passageiro(obj);
+      await novoPassageiro.save();
+    }
+
+    res.redirect(`/passageiros?s=${status}`);
   }
 
   static async buscarPorCpf(req, res) {
