@@ -16,10 +16,10 @@ class PassageiroController {
     static async cadastrar(req, res) {
         const _id = req.params._id;
         let passageiro = {};
-        if(_id) {
+        if (_id) {
             passageiro = await Passageiro.findOne({ _id });
         }
-        
+
         res.render("passageiro/cadastrar", { passageiro });
     }
 
