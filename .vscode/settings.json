@@ -1,15 +1,15 @@
 {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
 
-    "[javascript]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.formatOnSave": true
-    },
-    "emmet.includeLanguages": {
-        "ejs": "html",
-      },
-    "[html]": {
-        "editor.defaultFormatter": "j69.ejs-beautify",
-        "editor.formatOnSave": true
-    },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "emmet.includeLanguages": {
+    "ejs": "html"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "j69.ejs-beautify",
+    "editor.formatOnSave": true
+  }
 }
