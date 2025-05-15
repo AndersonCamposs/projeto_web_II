@@ -13,27 +13,53 @@ class VooController {
   }
 
   static async cadastrar(req, res) {
-    res.render('voo/cadastrar');
+    const _id = req.params._id;
+    let voo = {};
+    if (_id) {
+      voo = await Voo.findOne({ _id });
+    }
+
+    res.render('voo/cadastrar', { voo });
   }
 
   static async salvar(req, res) {
-    const { paisOrigem, estadoOrigem, cidadeOrigem, paisDestino, estadoDestino, cidadeDestino, tipoVoo, data, hora } =
-      req.body;
-    const novoVoo = new Voo({
-      cod: await gerarCodigo(5),
+    const {
+      _id,
+      cod,
       paisOrigem,
       estadoOrigem,
       cidadeOrigem,
       paisDestino,
       estadoDestino,
       cidadeDestino,
-      data: `${data}T${hora}Z`,
       tipoVoo,
-    });
+      data,
+      hora,
+    } = req.body;
+    let status = '';
+    const obj = {
+      cod: cod ? cod : await gerarCodigo(5),
+      paisOrigem,
+      estadoOrigem,
+      cidadeOrigem,
+      paisDestino,
+      estadoDestino,
+      cidadeDestino,
+      tipoVoo,
+      data,
+      hora,
+    };
 
-    await novoVoo.save();
+    if (_id) {
+      status = 3;
+      await Voo.updateOne({ _id }, obj);
+    } else {
+      status = 1;
+      const novoVoo = new Voo(obj);
+      await novoVoo.save();
+    }
 
-    res.redirect('/voos?s=1');
+    res.redirect(`/voos?s=${status}`);
   }
 
   static async detalhar(req, res) {
@@ -62,7 +88,7 @@ class VooController {
         await Reserva.deleteMany({ voo: vooExistente._id });
       }
 
-      await Passageiro.deleteOne({ _id: idObject });
+      await Voo.deleteOne({ _id: idObject });
 
       await session.commitTransaction();
       session.endSession();
