@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     toastStyle = 'text-success';
   } else if (s.value === '2') {
     toastTitle = 'Removido com sucesso';
-    toastBodyContent = `O registro de ${s.dataset.description} foi removido com sucesso e não se encontra mais na listas.`;
+    toastBodyContent = `O registro de ${s.dataset.description} foi removido com sucesso e não se encontra mais na lista.`;
     toastStyle = 'text-danger';
   } else if (s.value === '3') {
     toastTitle = 'Atualizado com sucesso';
