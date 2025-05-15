@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Voo = require('../models/Voo');
 const { formatDate, formatHour } = require('../utils/formatterUtils');
 const { gerarCodigo } = require('../utils/nanoidUtils');
+const Passageiro = require('../models/Passageiro');
+const Reserva = require('../models/Reserva');
 
 class VooController {
   static async relatorio(req, res) {
@@ -42,6 +44,35 @@ class VooController {
     }
     const voo = await Voo.findOne({ _id: idObject });
     res.render('voo/detalhe', { voo, formatDate, formatHour });
+  }
+
+  static async deletar(req, res) {
+    const session = await mongoose.startSession();
+    try {
+      session.startTransaction();
+
+      const idString = req.params._id;
+      let idObject = null;
+      if (mongoose.Types.ObjectId.isValid(idString)) {
+        idObject = new mongoose.Types.ObjectId(idString);
+      }
+
+      const vooExistente = await Voo.findOne({ _id: idObject });
+      if (vooExistente) {
+        await Reserva.deleteMany({ voo: vooExistente._id });
+      }
+
+      await Passageiro.deleteOne({ _id: idObject });
+
+      await session.commitTransaction();
+      session.endSession();
+
+      res.redirect('/voos?s=2');
+    } catch (e) {
+      await session.abortTransaction();
+      session.endSession();
+      throw new Error('Erro ao deletar voo.');
+    }
   }
 }
 
