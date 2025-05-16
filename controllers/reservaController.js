@@ -1,7 +1,7 @@
 const monmgoose = require('mongoose');
 const Reserva = require('../models/Reserva');
 const Voo = require('../models/Voo');
-const { formatDate, formatHour } = require('../utils/formatterUtils');
+const { formatDate, formatHour, formatarDataHora } = require('../utils/formatterUtils');
 const { gerarCodigo } = require('../utils/nanoidUtils');
 const { default: mongoose } = require('mongoose');
 
@@ -13,8 +13,13 @@ class ReservaController {
   }
 
   static async cadastrar(req, res) {
+    const _id = req.params._id;
+    let reserva = {};
+    if (_id) {
+      reserva = await Reserva.findOne({ _id }).populate('passageiro').populate('voo');
+    }
     const listaVoos = await Voo.find({ data: { $gt: new Date() } }); // lista de voos disponíveis
-    res.render('reserva/cadastrar', { listaVoos: JSON.stringify(listaVoos) });
+    res.render('reserva/cadastrar', { reserva, listaVoos, formatarDataHora });
   }
 
   static async detalhar(req, res) {
@@ -24,17 +29,27 @@ class ReservaController {
   }
 
   static async salvar(req, res) {
-    const { idVoo, idPassageiro, valorReserva, tipoPagamento } = req.body;
+    const { _id, cod, idVoo, idPassageiro, valorReserva, tipoPagamento } = req.body;
+    let status = '';
     const valorNormalizado = valorReserva.replace(',', '.');
-    const novaReserva = new Reserva({
-      cod: await gerarCodigo(5),
+    let obj = {
+      cod: cod ? cod : await gerarCodigo(5),
       valor: valorNormalizado,
       tipoPagamento,
       passageiro: idPassageiro,
       voo: idVoo,
-    });
-    await novaReserva.save();
-    res.redirect('/reservas?s=1');
+    };
+    console.log(obj);
+    if (_id) {
+      status = 3;
+      await Reserva.updateOne({ _id }, obj);
+    } else {
+      status = 1;
+      const novaReserva = new Reserva(obj);
+      await novaReserva.save();
+    }
+
+    res.redirect(`/reservas?s=${status}`);
   }
 
   static async deletar(req, res) {
