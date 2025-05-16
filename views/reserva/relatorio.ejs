@@ -39,6 +39,28 @@
                 <a href="/reservas/<%= reserva.cod%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes da reserva">
                   <i class="fa-solid fa-eye"></i>
                 </a>
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-toggle="tooltip" title="Excluir dados da Reserva" data-bs-target="#modalExclusao_<%= reserva._id %>">
+                  <i class="fa-solid fa-trash"></i>
+                </button>
+                <!-- Modal -->
+                <div class="modal fade" id="modalExclusao_<%= reserva._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalConfirmacaoExclusaoTitle" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="modalConfirmacaoExclusaoTitle">Confirmação de Exclusão</h1>
+                      </div>
+                      <div class="modal-body">
+                        Tem certeza que deseja excluir a reserva de COD. <strong><%= reserva.cod %></strong>, do passageiro <strong> <%= reserva.passageiro.nome %> </strong>?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" id="btnConfirmarDelecao" class="btn btn-primary" data-id-exclusao="<%= reserva._id%>" onclick="excluirReserva(this)">
+                          Confirmar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </td>
             </tr>
             <% }) %>
@@ -55,34 +77,23 @@
     </div>
     <% } %>
     <div class="toast-container position-fixed top-0 end-0 p-3">
-      <div id="addedSuccessfullyToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <input type="hidden" id="status" value="<%= s %>" data-description="reserva">
+      <div id="statusToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header text-success">
           <i class="fa-solid fa-square-check me-2"></i>
-          <strong class="me-auto">Adicionado com sucesso</strong>
+          <strong class="me-auto" id="toast-title"></strong>
           <small> <%= `${new Date().getHours().toString().padStart(2, "0")}:${new Date().getMinutes().toString().padStart(2, "0")}` %> </small>
           <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
         </div>
-        <div class="toast-body">
-          A reserva foi adicionada com sucesso e já encontra-se na lista.
+        <div class="toast-body" id="toast-body-content">
+
         </div>
       </div>
     </div>
   </div>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const s = "<%= s %>";
-      const delay = 10000
-      if (s === "1") {
-        const addedSuccessfullyToast = document.querySelector("#addedSuccessfullyToast");
-        const toast = bootstrap.Toast.getOrCreateInstance(addedSuccessfullyToast, {
-          delay
-        });
-        toast.show();
-      }
-    })
-  </script>
-</body>
+  <script src="/js/reserva/reserva.js"></script>
+  <script src="/js/toastManager.js"></script>
 </body>
 
 </html>
