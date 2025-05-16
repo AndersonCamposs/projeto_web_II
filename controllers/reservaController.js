@@ -39,7 +39,6 @@ class ReservaController {
       passageiro: idPassageiro,
       voo: idVoo,
     };
-    console.log(obj);
     if (_id) {
       status = 3;
       await Reserva.updateOne({ _id }, obj);
