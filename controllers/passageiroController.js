@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Passageiro = require('../models/Passageiro');
 const { formatDate } = require('../utils/formatterUtils');
+const Reserva = require('../models/Reserva');
 
 class PassageiroController {
   static async relatorio(req, res) {
@@ -14,42 +15,55 @@ class PassageiroController {
   }
 
   static async cadastrar(req, res) {
+    console.log(req.body);
     const _id = req.params._id;
     let passageiro = {};
     if (_id) {
       passageiro = await Passageiro.findOne({ _id });
     }
 
-    res.render('passageiro/cadastrar', { passageiro });
+    res.render('passageiro/cadastrar', { passageiro, errorMessage: null });
   }
 
   static async salvar(req, res) {
-    const { _id, nome, cpf, rg, dataNascimento, telefone, estado, cidade, logradouro, bairro, numeroResidencia } =
-      req.body;
-    let status = '';
-    const obj = {
-      nome,
-      cpf,
-      rg,
-      dataNascimento: new Date(dataNascimento),
-      telefone,
-      estado,
-      cidade,
-      logradouro,
-      bairro,
-      numeroResidencia,
-    };
+    try {
+      const { _id, nome, cpf, rg, dataNascimento, telefone, estado, cidade, logradouro, bairro, numeroResidencia } =
+        req.body;
+      let status = '';
+      const obj = {
+        nome,
+        cpf,
+        rg,
+        dataNascimento: new Date(dataNascimento),
+        telefone,
+        estado,
+        cidade,
+        logradouro,
+        bairro,
+        numeroResidencia,
+      };
 
-    if (_id) {
-      status = 3;
-      await Passageiro.updateOne({ _id }, obj);
-    } else {
-      status = 1;
-      const novoPassageiro = new Passageiro(obj);
-      await novoPassageiro.save();
+      const passageiroExistente = await Passageiro.findOne({ cpf });
+
+      if (passageiroExistente) {
+        e = new Error(`Já existe um passageiro com o ${cpf}`);
+        e.passageiro = obj;
+        throw e;
+      }
+
+      if (_id) {
+        status = 3;
+        await Passageiro.updateOne({ _id }, obj);
+      } else {
+        status = 1;
+        const novoPassageiro = new Passageiro(obj);
+        await novoPassageiro.save();
+      }
+
+      res.redirect(`/passageiros?s=${status}`);
+    } catch (e) {
+      await fetch('http://localhost:5500/passageiro/cadastrar');
     }
-
-    res.redirect(`/passageiros?s=${status}`);
   }
 
   static async buscarPorCpf(req, res) {
@@ -73,21 +87,28 @@ class PassageiroController {
   }
 
   static async deletar(req, res) {
-    const idString = req.params._id;
-    let idObject = null;
-    if (mongoose.Types.ObjectId.isValid(idString)) {
-      idObject = new mongoose.Types.ObjectId(idString);
+    const session = await mongoose.startSession();
+    try {
+      const idString = req.params._id;
+      let idObject = null;
+      if (mongoose.Types.ObjectId.isValid(idString)) {
+        idObject = new mongoose.Types.ObjectId(idString);
+      }
+      const passageiroExistente = await Passageiro.findOne({ _id: idObject });
+      if (passageiroExistente) {
+        await Reserva.deleteMany({ passageiro: passageiroExistente._id });
+      }
+      await Passageiro.deleteOne({ _id: idObject });
+
+      await session.commitTransaction();
+      session.endSession();
+
+      res.redirect('/passageiros?s=2');
+    } catch (e) {
+      await session.abortTransaction();
+      session.endSession();
+      throw new Error('Erro ao deletar passageiro.');
     }
-
-    await Passageiro.deleteOne({ _id: idObject });
-    res.redirect('/passageiros?s=2');
-  }
-
-  static async redirectUpdate(req, res) {
-    const _id = req.params._id;
-    const passageiro = await Passageiro.findOne({ _id });
-
-    res.render('passageiro/cadastrar', { passageiro });
   }
 }
 
