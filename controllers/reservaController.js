@@ -3,6 +3,7 @@ const Reserva = require('../models/Reserva');
 const Voo = require('../models/Voo');
 const { formatDate, formatHour } = require('../utils/formatterUtils');
 const { gerarCodigo } = require('../utils/nanoidUtils');
+const { default: mongoose } = require('mongoose');
 
 class ReservaController {
   static async relatorio(req, res) {
@@ -34,6 +35,18 @@ class ReservaController {
     });
     await novaReserva.save();
     res.redirect('/reservas?s=1');
+  }
+
+  static async deletar(req, res) {
+    const idString = req.params._id;
+    let idObject = null;
+    if (mongoose.Types.ObjectId.isValid(idString)) {
+      idObject = new mongoose.Types.ObjectId(idString);
+    }
+
+    await Reserva.deleteOne({ _id: idString });
+
+    res.redirect('/reservas?s=2');
   }
 }
 
