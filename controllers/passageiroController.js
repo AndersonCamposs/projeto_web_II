@@ -15,7 +15,6 @@ class PassageiroController {
   }
 
   static async cadastrar(req, res) {
-    console.log(req.body);
     const _id = req.params._id;
     let passageiro = {};
     if (_id) {
@@ -43,12 +42,14 @@ class PassageiroController {
         numeroResidencia,
       };
 
-      const passageiroExistente = await Passageiro.findOne({ cpf });
+      if (!_id) {
+        const passageiroExistente = await Passageiro.findOne({ cpf });
 
-      if (passageiroExistente) {
-        e = new Error(`Já existe um passageiro com o ${cpf}`);
-        e.passageiro = obj;
-        throw e;
+        if (passageiroExistente) {
+          const e = new Error(`Já existe um passageiro com o ${cpf}`);
+          e.code = 409;
+          throw e;
+        }
       }
 
       if (_id) {
@@ -62,7 +63,7 @@ class PassageiroController {
 
       res.redirect(`/passageiros?s=${status}`);
     } catch (e) {
-      await fetch('http://localhost:5500/passageiro/cadastrar');
+      res.render('error', { error: e });
     }
   }
 
