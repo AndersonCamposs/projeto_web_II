@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('partials/head', { title: "Erro 404"}) %>
+
+<body>
+  <div class="container-fluid p-0">
+    <div class="d-flex flex-column align-items-center justify-content-center min-vh-100">
+      <h1 class="text-secondary"><%= error.code %></h1>
+      <h5> <%= error.message %> </h5>
+      <p><a href="javascript:history.back()" class="link-primary">Voltar</a></p>
+    </div>
+  </div>
+</body>
+
+</html>

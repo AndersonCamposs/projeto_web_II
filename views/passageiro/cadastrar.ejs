@@ -12,35 +12,37 @@
       </div>
       <div class="card-body">
         <form action="/passageiros" method="post" autocomplete="off">
+          <input type="hidden" name="_id" value="<%= passageiro._id %>">
+
           <i class="fa-solid fa-user me-1"></i> Dados Pessoais
           <div class="row my-2">
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="nomeInput" required placeholder="Nome do passageiro" name="nome">
+                <input type="text" class="form-control" id="nomeInput" required placeholder="Nome do passageiro" name="nome" value="<%= passageiro.nome %>">
                 <label for="nomeInput">Nome do passageiro</label>
               </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="cpfInput" required placeholder="CPF" name="cpf">
+                <input type="text" class="form-control" id="cpfInput" required maxlength="14" placeholder="CPF" name="cpf" value="<%= passageiro.cpf %>" <%= passageiro._id ? 'readonly' : '' %>>
                 <label for="cpfInput">CPF</label>
               </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="rgInput" required placeholder="RG" name="rg">
+                <input type="text" class="form-control" id="rgInput" required placeholder="RG" name="rg" value="<%= passageiro.rg %>" <%= passageiro._id ? 'readonly' : '' %>>
                 <label for="rgInput">RG</label>
               </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
               <div class="form-floating mb-3">
-                <input type="date" class="form-control" id="dataNascimentoInput" required placeholder="Data de nascimento" name="dataNascimento">
+                <input type="date" class="form-control" id="dataNascimentoInput" required placeholder="Data de nascimento" name="dataNascimento" value="<%= passageiro.dataNascimento ? passageiro.dataNascimento.toISOString().split('T')[0] : "" %>" <%= passageiro._id ? 'readonly' : '' %>>
                 <label for="dataNascimentoInput">Data de nascimento</label>
               </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="telefoneInput" required placeholder="Telefone" name="telefone">
+                <input type="text" class="form-control" id="telefoneInput" required placeholder="Telefone" name="telefone" value="<%= passageiro.telefone %>">
                 <label for="telefone input">Telefone</label>
               </div>
             </div>
@@ -50,31 +52,31 @@
           <div class="row my-2">
             <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="estadoInput" required placeholder="Estado" name="estado">
+                <input type="text" class="form-control" id="estadoInput" required placeholder="Estado" name="estado" value="<%= passageiro.estado %>">
                 <label for="estadoInput">Estado</label>
               </div>
             </div>
             <div class="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="cidadeInput" required placeholder="Cidade" name="cidade">
+                <input type="text" class="form-control" id="cidadeInput" required placeholder="Cidade" name="cidade" value="<%= passageiro.cidade %>">
                 <label for="cidadeInput">Cidade</label>
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="logradouroInput" required placeholder="Logradouro" name="logradouro">
+                <input type="text" class="form-control" id="logradouroInput" required placeholder="Logradouro" name="logradouro" value="<%= passageiro.logradouro %>">
                 <label for="logradouroInput">Logradouro</label>
               </div>
             </div>
             <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="bairroInput" required placeholder="Bairro" name="bairro">
+                <input type="text" class="form-control" id="bairroInput" required placeholder="Bairro" name="bairro" value="<%= passageiro.bairro %>">
                 <label for="bairroInput">Bairro</label>
               </div>
             </div>
             <div class="col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3">
               <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="numeroResidenciaInput" required placeholder="Número residencial" name="numeroResidencia">
+                <input type="number" class="form-control" id="numeroResidenciaInput" required placeholder="Número residencial" name="numeroResidencia" value="<%= passageiro.numeroResidencia %>">
                 <label for="numeroResidenciaInput">Número residencial</label>
               </div>
             </div>
@@ -90,6 +92,7 @@
     </div>
 
   </div>
+  <script src="/js/formatterUtils.js"></script>
 </body>
 
 </html>
