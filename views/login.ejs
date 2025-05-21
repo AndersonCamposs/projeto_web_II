@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/head', { title: "Página inicial"}) %>
+<body>
+  <div class="container my-5">
+    <div class="row d-flex flex-column justify-content-center align-items-center">
+      <h2>Login</h2>
+      <form action="/usuarios/login" method="post">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="emailInput" required placeholder="E-mail" name="email">
+          <label for="emailInput">E-mail</label>
+
+          <% if (s) { %>
+           <p class="text-danger">
+              E-mail e/ou senha incorretos.
+           </p>
+          <% } %>
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="senhaInput" required placeholder="Senha" name="senha">
+          <label for="senhaInput">Senha</label>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          Entrar
+        </button>
+      </form>
+    </div>    
+  </div>
+  
+</body>
+</html>
