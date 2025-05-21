@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('../partials/head', { title: "Detalhe de passageiro" }) %>
+
+<body>
+  <%- include('../partials/navBar') %>
+  <div class="container mt-3">
+    <% if (!usuario) { %>
+    <div class="alert alert-warning text-center" role="alert">
+      Usuário não encontrado. Para listar todos os usuários, <a href="/passageiros" class="alert-link">clique aqui</a>.
+    </div>
+    <% } else { %>
+    <p class="text-center fs-3 my-3">Informações do usuário</p>
+    <div class="card mb-3">
+      <div class="card-header">
+        <i class="fa-solid fa-circle-info"></i> Informações pessoais
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-3">
+            <div class="input-group mb-3">
+              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">Nome</button>
+              <input type="text" class="form-control" value="<%= usuario.cod%>" aria-describedby="button-addon1" readonly>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div class="input-group mb-3">
+              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">Nome</button>
+              <input type="text" class="form-control" value="<%= usuario.nome%>" aria-describedby="button-addon1" readonly>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+            <div class="input-group mb-3">
+              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="CPF do passageiro">E-mail</button>
+              <input type="email" class="form-control" value="<%= usuario.email%>" aria-describedby="button-addon1" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>
+      <a href="/passageiros" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+        <i class="fa-solid fa-arrow-left"></i> Voltar para listagem
+      </a>
+    </p>
+    <% } %>
+  </div>
+</body>
+
+</html>

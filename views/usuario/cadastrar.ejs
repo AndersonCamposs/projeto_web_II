@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head', { title: "Cadastrar usuário" }) %>
+
+<body>
+  <%- include('../partials/navBar') %>
+  <div class="container">
+    <p class="text-center fs-3 my-3">Adicionar Usuário</p>
+    <div class="card">
+      <div class="card-header">
+        <i class="fa-solid fa-pencil me-1"></i>Preencha os dados do usuário
+      </div>
+      <div class="card-body">
+        <form action="/usuarios" method="post" autocomplete="off">
+          <input type="hidden" name="_id" value="<%= usuario._id %>">
+          <input type="hidden" name="cod" value="<%= usuario.cod %>">
+
+          <i class="fa-solid fa-user me-1"></i> Dados do usuário
+          <div class="row my-2">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nomeInput" required placeholder="Nome do passageiro" name="nome" value="<%= usuario.nome %>">
+                <label for="nomeInput">Nome do usuário</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="emailInput" required placeholder="E-mail" name="email" value="<%= usuario.email %>" <%= usuario._id ? 'readonly' : '' %>>
+                <label for="emailInput">E-mail</label>
+              </div>
+            </div>
+            <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+              <% if (!usuario._id) { %>
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="rgInput" required placeholder="Senha" name="senha" value="<%= usuario.senha %>">
+                  <label for="rgInput">Senha</label>
+                </div>
+              <% } %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-primary px-4">Salvar</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+  <script src="/js/formatterUtils.js"></script>
+</body>
+
+</html>
