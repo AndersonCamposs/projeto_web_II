@@ -15,9 +15,7 @@ mongoose.connect(
 const passageiroRoutes = require('./routes/passageiroRoutes');
 const vooRoutes = require('./routes/vooRoutes');
 const reservaRoutes = require('./routes/reservaRoutes');
-
-const { formatDate, formatHour } = require('./utils/formatterUtils');
-const { gerarCodigo } = require('./utils/nanoidUtils');
+const usuarioRoutes = require('./routes/usuarioRoutes');
 
 app.get('/', (req, res) => {
   res.render('index');
@@ -26,6 +24,7 @@ app.get('/', (req, res) => {
 app.use('/passageiros', passageiroRoutes);
 app.use('/voos', vooRoutes);
 app.use('/reservas', reservaRoutes);
+app.use('/usuarios', usuarioRoutes);
 
 app.use((req, res) => {
   res.status(404).render('404');
