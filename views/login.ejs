@@ -1,31 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <%- include('partials/head', { title: "Página inicial"}) %>
-<body>
-  <div class="container my-5">
-    <div class="row d-flex flex-column justify-content-center align-items-center">
-      <h2>Login</h2>
-      <form action="/usuarios/login" method="post">
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="emailInput" required placeholder="E-mail" name="email">
-          <label for="emailInput">E-mail</label>
+<%- include('partials/head', { title: "Login"}) %>
 
-          <% if (s) { %>
-           <p class="text-danger">
-              E-mail e/ou senha incorretos.
-           </p>
-          <% } %>
+<body>
+  <section class="vh-100">
+    <div class="container py-5 h-100 d-flex justify-content-center">
+      <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-8 col-lg-5 col-xl-4">
+          <img src="/img/mandacaru_airlines.png" class="img-fluid" alt="Phone image">
         </div>
-        <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="senhaInput" required placeholder="Senha" name="senha">
-          <label for="senhaInput">Senha</label>
+        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+          <form action="/usuarios/login" method="POST">
+            <div class="row">
+              <div class="col-12">
+                <h3 class="mb-3 d-flex justify-content-center">Login</h3>
+              </div>
+            </div>
+            <div data-mdb-input-init class="form-outline mb-4">
+              <div class="form-floating mb-3">
+                <input type="email" class="form-control" id="emailInput" placeholder="nome@email.com" name="email">
+                <label for="emailInput">E-mail</label>
+              </div>
+            </div>
+
+            <div data-mdb-input-init class="form-outline mb-2">
+              <div class="form-floating">
+                <input type="password" class="form-control" id="emailSenha" placeholder="Senha" name="senha">
+                <label for="emailSenha">Senha</label>
+              </div>
+            </div>
+
+            <div class="mb-2">
+              <a href="#">Não tem conta? Registre-se.</a>
+            </div>
+            <% if (s) { %>
+            <div class="alert alert-danger">
+              Login e/ou senha incorretos.
+            </div>
+            <% } %>
+
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="form1Example3" name="checkBoxLembrarDeMim" />
+                <label class="form-check-label" for="form1Example3"> Lembre-se de mim </label>
+              </div>
+              <a href="#!">Esqueceu a senha?</a>
+            </div>
+            <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block">Entrar</button>
+          </form>
         </div>
-        <button type="submit" class="btn btn-primary">
-          Entrar
-        </button>
-      </form>
-    </div>    
-  </div>
-  
+
+      </div>
+    </div>
+  </section>
+
 </body>
+
 </html>
