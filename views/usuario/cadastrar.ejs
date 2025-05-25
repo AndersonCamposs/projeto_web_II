@@ -3,7 +3,10 @@
 <%- include('../partials/head', { title: "Cadastrar usuário" }) %>
 
 <body>
+  <% if (hasAutenticacao) { %>
   <%- include('../partials/navBar') %>
+  <% } %>
+
   <div class="container">
     <p class="text-center fs-3 my-3">Adicionar Usuário</p>
     <div class="card">
@@ -31,10 +34,10 @@
             </div>
             <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
               <% if (!usuario._id) { %>
-                <div class="form-floating mb-3">
-                  <input type="password" class="form-control" id="rgInput" required placeholder="Senha" name="senha" value="<%= usuario.senha %>">
-                  <label for="rgInput">Senha</label>
-                </div>
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="rgInput" required placeholder="Senha" name="senha" value="<%= usuario.senha %>">
+                <label for="rgInput">Senha</label>
+              </div>
               <% } %>
             </div>
           </div>
