@@ -105,6 +105,17 @@ class UsuarioController {
       res.redirect('/usuarios/login?s=1');
     }
   }
+
+  static async logout(req, res) {
+    req.session.destroy((e) => {
+      if (e) {
+        res.render('error', { error: e });
+      }
+    });
+
+    res.clearCookie('connect.sid');
+    res.redirect('/usuarios/login');
+  }
 }
 
 module.exports = UsuarioController;
