@@ -10,7 +10,7 @@ document.querySelector('#selectVooReserva').addEventListener('change', (e) => {
 });
 
 document.querySelector('#btnBuscarPassageiro').addEventListener('click', async () => {
-  const value = document.querySelector('#cpfPassageiroInput').value;
+  const value = document.querySelector('#cpfInput').value;
   const cpf = value ? value : null;
   try {
     const res = await fetch(`http://localhost:5500/passageiros/search/${cpf}`);

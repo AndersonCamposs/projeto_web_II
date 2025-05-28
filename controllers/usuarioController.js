@@ -13,19 +13,25 @@ class UsuarioController {
       listaUsuarios,
       s,
       formatDate,
+      usuarioLogado: req.session.usuario,
     });
   }
 
   static async cadastrar(req, res) {
     const hasAutenticacao = req.session.usuario !== undefined;
 
-    const _id = req.params._id;
-    let usuario = {};
-    if (_id && hasAutenticacao) {
-      usuario = await Usuario.findOne({ _id });
-    }
+    const cod = req.params.cod;
+    if (cod && req.session.usuario.cod != cod) {
+      // se o usuário tentar editar um perfil que não é dele
+      res.redirect('/usuarios');
+    } else {
+      let usuario = {};
+      if (cod && hasAutenticacao) {
+        usuario = await Usuario.findOne({ cod });
+      }
 
-    res.render('usuario/cadastrar', { usuario, errorMessage: null, hasAutenticacao });
+      res.render('usuario/cadastrar', { usuario, errorMessage: null, hasAutenticacao });
+    }
   }
 
   static async salvar(req, res) {
@@ -66,12 +72,8 @@ class UsuarioController {
   }
 
   static async detalhar(req, res) {
-    const idString = req.params._id;
-    let idObject = null;
-    if (mongoose.Types.ObjectId.isValid(idString)) {
-      idObject = new mongoose.Types.ObjectId(idString);
-    }
-    const usuario = await Usuario.findOne({ _id: idObject });
+    const cod = req.params.cod;
+    const usuario = await Usuario.findOne({ cod });
     res.render('usuario/detalhe', { usuario, formatDate });
   }
 
@@ -92,7 +94,11 @@ class UsuarioController {
   static loginGet(req, res) {
     const s = req.query.s;
 
-    res.render('login', { s });
+    if (req.session.usuario && req.session.usuario.nome) {
+      res.render('index', { usuario: req.session.usuario });
+    } else {
+      res.render('login', { s });
+    }
   }
 
   static async loginPost(req, res) {
@@ -100,7 +106,7 @@ class UsuarioController {
     const usuario = await Usuario.findOne({ email });
 
     if (usuario && bcrypt.compareSync(senha, usuario.senha)) {
-      req.session.usuario = { nome: usuario.nome, email: usuario.email };
+      req.session.usuario = { nome: usuario.nome, email: usuario.email, cod: usuario.cod };
       res.redirect('/');
     } else {
       res.redirect('/usuarios/login?s=1');
