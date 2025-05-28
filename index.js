@@ -1,16 +1,28 @@
 const express = require('express');
+const session = require('express-session');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const authGuard = require('./middlewares/authGuard');
 
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 app.use(express.static('public'));
+app.use(
+  session({
+    secret: 'aXiY09_pO1@_lja',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 },
+  }),
+);
 
 mongoose.connect(
   'mongodb+srv://admin:acs1_admin@cluster0.0sacf0g.mongodb.net/projeto_web_II?retryWrites=true&w=majority&appName=Cluster0',
 );
+
+app.use(authGuard);
 
 const passageiroRoutes = require('./routes/passageiroRoutes');
 const vooRoutes = require('./routes/vooRoutes');
@@ -18,7 +30,7 @@ const reservaRoutes = require('./routes/reservaRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { usuario: req.session.usuario });
 });
 
 app.use('/passageiros', passageiroRoutes);

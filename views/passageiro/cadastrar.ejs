@@ -26,6 +26,11 @@
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="cpfInput" required maxlength="14" placeholder="CPF" name="cpf" value="<%= passageiro.cpf %>" <%= passageiro._id ? 'readonly' : '' %>>
                 <label for="cpfInput">CPF</label>
+                <% if (errorMessage) { %>
+                <p class="text-danger">
+                  <%= errorMessage %>
+                </p>
+                <% } %>
               </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">

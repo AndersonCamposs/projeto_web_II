@@ -15,13 +15,23 @@ class PassageiroController {
   }
 
   static async cadastrar(req, res) {
+    const { addPassageiroErro } = req.session;
+    delete req.session.addPassageiroErro;
     const _id = req.params._id;
     let passageiro = {};
-    if (_id) {
-      passageiro = await Passageiro.findOne({ _id });
+    let errorMessage = null;
+    if (addPassageiroErro) {
+      passageiro = addPassageiroErro.passageiroAdicionado;
+      // converte a string armazenada na sessão para um Date
+      passageiro.dataNascimento = new Date(passageiro.dataNascimento);
+      errorMessage = addPassageiroErro.mensagem;
+    } else {
+      if (_id) {
+        passageiro = await Passageiro.findOne({ _id });
+      }
     }
 
-    res.render('passageiro/cadastrar', { passageiro, errorMessage: null });
+    res.render('passageiro/cadastrar', { passageiro, errorMessage });
   }
 
   static async salvar(req, res) {
@@ -47,7 +57,7 @@ class PassageiroController {
 
         if (passageiroExistente) {
           const e = new Error(`Já existe um passageiro com o ${cpf}`);
-          e.code = 409;
+          e.obj = obj;
           throw e;
         }
       }
@@ -63,7 +73,12 @@ class PassageiroController {
 
       res.redirect(`/passageiros?s=${status}`);
     } catch (e) {
-      res.render('error', { error: e });
+      req.session.addPassageiroErro = {
+        passageiroAdicionado: e.obj,
+        mensagem: e.message,
+      };
+
+      res.redirect('/passageiros/cadastrar');
     }
   }
 
@@ -90,6 +105,8 @@ class PassageiroController {
   static async deletar(req, res) {
     const session = await mongoose.startSession();
     try {
+      session.startTransaction();
+
       const idString = req.params._id;
       let idObject = null;
       if (mongoose.Types.ObjectId.isValid(idString)) {

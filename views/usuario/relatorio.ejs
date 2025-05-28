@@ -20,6 +20,7 @@
           <thead>
             <tr>
               <th scope="col">Cód.</th>
+              <th scope="col">Nome</th>
               <th scope="col">E-mail</th>
               <th scope="col">Data de registro</th>
               <th scope="col">Ações</th>
@@ -29,6 +30,7 @@
             <% listaUsuarios.forEach((usuario) => { %>
             <tr>
               <td><%= usuario.cod %></td>
+              <td><%= usuario.nome %></td>
               <td><%= usuario.email %></td>
               <td><%=formatDate(usuario.created_at)%></td>
               <td>

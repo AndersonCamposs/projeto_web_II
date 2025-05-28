@@ -17,13 +17,15 @@ class UsuarioController {
   }
 
   static async cadastrar(req, res) {
+    const hasAutenticacao = req.session.usuario !== undefined;
+
     const _id = req.params._id;
     let usuario = {};
-    if (_id) {
+    if (_id && hasAutenticacao) {
       usuario = await Usuario.findOne({ _id });
     }
 
-    res.render('usuario/cadastrar', { usuario, errorMessage: null });
+    res.render('usuario/cadastrar', { usuario, errorMessage: null, hasAutenticacao });
   }
 
   static async salvar(req, res) {
@@ -34,6 +36,7 @@ class UsuarioController {
         cod: cod ? cod : await gerarCodigo(5),
         nome,
         email,
+        senha,
       };
 
       if (!_id) {
@@ -86,7 +89,7 @@ class UsuarioController {
     }
   }
 
-  static async loginGet(req, res) {
+  static loginGet(req, res) {
     const s = req.query.s;
 
     res.render('login', { s });
@@ -97,10 +100,22 @@ class UsuarioController {
     const usuario = await Usuario.findOne({ email });
 
     if (usuario && bcrypt.compareSync(senha, usuario.senha)) {
+      req.session.usuario = { nome: usuario.nome, email: usuario.email };
       res.redirect('/');
     } else {
       res.redirect('/usuarios/login?s=1');
     }
+  }
+
+  static logout(req, res) {
+    req.session.destroy((e) => {
+      if (e) {
+        res.render('error', { error: e });
+      }
+    });
+
+    res.clearCookie('connect.sid');
+    res.redirect('/usuarios/login');
   }
 }
 

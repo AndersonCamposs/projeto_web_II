@@ -3,7 +3,10 @@
 <%- include('../partials/head', { title: "Cadastrar usuário" }) %>
 
 <body>
+  <% if (hasAutenticacao) { %>
   <%- include('../partials/navBar') %>
+  <% } %>
+
   <div class="container">
     <p class="text-center fs-3 my-3">Adicionar Usuário</p>
     <div class="card">
@@ -17,25 +20,23 @@
 
           <i class="fa-solid fa-user me-1"></i> Dados do usuário
           <div class="row my-2">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
               <div class="form-floating mb-3">
                 <input type="text" class="form-control" id="nomeInput" required placeholder="Nome do passageiro" name="nome" value="<%= usuario.nome %>">
                 <label for="nomeInput">Nome do usuário</label>
               </div>
             </div>
-            <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
+            <div class="col-12 col-sm-6 col-md-3 col-lg-4 col-xl-4">
               <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="emailInput" required placeholder="E-mail" name="email" value="<%= usuario.email %>" <%= usuario._id ? 'readonly' : '' %>>
                 <label for="emailInput">E-mail</label>
               </div>
             </div>
-            <div class="col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3">
-              <% if (!usuario._id) { %>
-                <div class="form-floating mb-3">
-                  <input type="password" class="form-control" id="rgInput" required placeholder="Senha" name="senha" value="<%= usuario.senha %>">
-                  <label for="rgInput">Senha</label>
-                </div>
-              <% } %>
+            <div class="col-12 col-sm-6 col-md-3 col-lg-4 col-xl-4">
+              <div class="form-floating mb-3">
+                <input type="password" class="form-control" id="rgInput" required placeholder="Senha" name="senha">
+                <label for="rgInput">Senha</label>
+              </div>
             </div>
           </div>
 
