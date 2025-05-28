@@ -13,7 +13,7 @@ app.use(
   session({
     secret: 'aXiY09_pO1@_lja',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { secure: false, maxAge: 1000 * 60 * 60 * 24 },
   }),
 );
@@ -30,7 +30,7 @@ const reservaRoutes = require('./routes/reservaRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
 
 app.get('/', (req, res) => {
-  res.render('index');
+  res.render('index', { usuario: req.session.usuario });
 });
 
 app.use('/passageiros', passageiroRoutes);
