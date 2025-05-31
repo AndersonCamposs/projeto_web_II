@@ -17,6 +17,9 @@ class UsuarioController {
   }
 
   static async cadastrar(req, res) {
+    const { addUsuarioErro } = req.session;
+    delete req.session.addUsuarioErro;
+
     const hasAutenticacao = req.session.usuario !== undefined;
 
     const _id = req.params._id;
@@ -25,7 +28,13 @@ class UsuarioController {
       usuario = await Usuario.findOne({ _id });
     }
 
-    res.render('usuario/cadastrar', { usuario, errorMessage: null, hasAutenticacao });
+    let errorMessage = null;
+    if (addUsuarioErro) {
+      usuario = addUsuarioErro.usuarioAdicionado;
+      errorMessage = addUsuarioErro.mensagem;
+    }
+
+    res.render('usuario/cadastrar', { usuario, errorMessage, hasAutenticacao });
   }
 
   static async salvar(req, res) {
@@ -43,8 +52,8 @@ class UsuarioController {
         const usuarioExistente = await Usuario.findOne({ email });
 
         if (usuarioExistente) {
-          const e = new Error(`Já existe um usuario com o e-mail ${email}`);
-          e.code = 409;
+          const e = new Error(`E-mail indisponível.`);
+          e.obj = obj;
           throw e;
         }
       }
@@ -61,7 +70,12 @@ class UsuarioController {
 
       res.redirect(`/usuarios?s=${status}`);
     } catch (e) {
-      res.render('error', { error: e });
+      req.session.addUsuarioErro = {
+        usuarioAdicionado: e.obj,
+        mensagem: e.message,
+      };
+
+      res.redirect('/usuarios/cadastrar');
     }
   }
 
