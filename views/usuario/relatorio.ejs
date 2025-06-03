@@ -34,7 +34,7 @@
               <td><%= usuario.email %></td>
               <td><%=formatDate(usuario.created_at)%></td>
               <td>
-                <a href="/usuarios/<%= usuario._id%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes do Usuário">
+                <a href="/usuarios/<%= usuario.cod%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes do Usuário">
                   <i class="fa-solid fa-eye"></i>
                 </a>
                 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-toggle="tooltip" title="Excluir dados do Usuário" data-bs-target="#modalExclusao_<%= usuario._id %>">
@@ -59,7 +59,7 @@
                     </div>
                   </div>
                 </div>
-                <a href="/usuarios/cadastrar/<%= usuario._id%>" class="btn btn-outline-success px-2" data-bs-toggle="tooltip" title="Editar dados do usuário">
+                <a href="/usuarios/cadastrar/<%= usuario.cod%>" class="btn btn-outline-success px-2" data-bs-toggle="tooltip" title="Editar dados do usuário">
                   <i class="fa-solid fa-pencil"></i>
                 </a>
               </td>
