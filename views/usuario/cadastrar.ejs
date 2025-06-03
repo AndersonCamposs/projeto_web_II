@@ -30,6 +30,11 @@
               <div class="form-floating mb-3">
                 <input type="email" class="form-control" id="emailInput" required placeholder="E-mail" name="email" value="<%= usuario.email %>" <%= usuario._id ? 'readonly' : '' %>>
                 <label for="emailInput">E-mail</label>
+                <% if (errorMessage) { %>
+                  <p class="text-danger">
+                    <%= errorMessage %>
+                  </p>
+                  <% } %>
               </div>
             </div>
             <div class="col-12 col-sm-6 col-md-3 col-lg-4 col-xl-4">

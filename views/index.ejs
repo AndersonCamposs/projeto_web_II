@@ -4,51 +4,53 @@
 <%- include('partials/head', { title: "Página inicial"}) %>
 
 <body class="d-flex flex-column min-vh-100">
-  <%- include('partials/navBar') %>
-  <main class="flex-grow-1">
-    <div class="container-fluid">
-      <div class="row mt-2">
-        <div class="col-12 d-flex justify-content-center">
-          <h3>
-            Bem vindo, <%= usuario.nome %>. O que desejaria fazer?
-          </h3>
-        </div>
-      </div>
-      <div class="row d-flex justify-content-center mt-4">
-        <div class="col-12 col-sm-12 col-md-4 col-md-4 col-lg-3">
-          <div class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 text-center">
-            <h5>Adicionar Passageiro</h5>
-            <a href="/passageiros/cadastrar" class="btn btn-primary px-3 m-3" data-bs-toogle="tooltip" title="Adicionar passageiro">
-              <h5 class="m-0">
-                <i class="fa fa-plus p-0"></i>
-              </h5>
-            </a>
-          </div>
-        </div>
-        <div class="col-12 col-sm-12 col-md-4 col-md-4 col-lg-3">
-          <div class="p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3 text-center">
-            <h5>Adicionar Voo</h5>
-            <a href="/voos/cadastrar" class="btn btn-success px-3 m-3" data-bs-toogle="tooltip" title="Adicionar voo">
-              <h5 class="m-0">
-                <i class="fa fa-plus p-0"></i>
-              </h5>
-            </a>
-          </div>
-        </div>
-        <div class="col-12 col-sm-12 col-md-4 col-md-4 col-lg-3">
-          <div class="p-3 text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-3 text-center">
-            <h5>Adicionar Reserva</h5>
-            <a href="/reservas/cadastrar" class="btn btn-warning px-3 m-3" data-bs-toogle="tooltip" title="Adicionar reserva">
-              <h5 class="m-0">
-                <i class="fa fa-plus p-0"></i>
-              </h5>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </main>
-  <%- include('partials/footer') %>
-</body>
+    <%- include('partials/navBar') %>
+    <main class="flex-grow-1">
+        <div class="container-fluid">
+            <div class="row mt-2">
+                <div class="col-12 d-flex justify-content-center">
+                    <h3>
+                      Bem vindo, <%= usuario.nome %>. O que desejaria fazer?
+                    </h3>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center mt-4">
+              <div class="col-12 col-sm-8 col-md-5 col-lg-3 mb-3">
+                <div class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3 text-center">
+                  <h5>Adicionar passageiro</h5>
+                  <a href="/passageiros/cadastrar" class="btn btn-primary px-3 m-3" data-bs-toogle="tooltip" title="Adicionar passageiro">
+                    <h5 class="m-0">
+                      <i class="fa fa-plus p-0"></i>
+                    </h5>
+                  </a>
+                </div>
+              </div>
 
+              <div class="col-12 col-sm-8 col-md-5 col-lg-3 mb-3">
+                <div class="p-3 text-success-emphasis bg-success-subtle border border-success-subtle rounded-3 text-center">
+                  <h5>Adicionar Voo</h5>
+                  <a href="/voos/cadastrar" class="btn btn-success px-3 m-3" data-bs-toogle="tooltip" title="Adicionar Voo">
+                    <h5 class="m-0">
+                      <i class="fa fa-plus p-0"></i>
+                    </h5>
+                  </a>
+                </div>
+              </div>
+
+              <div class="col-12 col-sm-8 col-md-5 col-lg-3 mb-3">
+                <div class="p-3 text-warning-emphasis bg-warning-subtle border border-warning-subtle rounded-3 text-center">
+                  <h5>Adicionar Reserva</h5>
+                  <a href="/reservas/cadastrar" class="btn btn-warning px-3 m-3" data-bs-toogle="tooltip" title="Adicionar reserva">
+                    <h5 class="m-0">
+                      <i class="fa fa-plus p-0"></i>
+                    </h5>
+                  </a>
+                </div>
+              </div>
+              
+            </div>
+        </div>
+    </main>
+    <%- include('partials/footer') %>
+</body>
 </html>
