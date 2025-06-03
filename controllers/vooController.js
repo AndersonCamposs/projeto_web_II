@@ -48,7 +48,6 @@ class VooController {
       tipoVoo,
       data: new Date(`${data}T${hora}Z`), // formato: aaaa-mm-ddT00:00:00Z (isostring)
     };
-    console.log(obj);
 
     if (_id) {
       status = 3;
