@@ -17,16 +17,22 @@ class UsuarioController {
     });
   }
 
- static async cadastrar(req, res) {
+  static async cadastrar(req, res) {
     const { addUsuarioErro } = req.session;
     delete req.session.addUsuarioErro;
 
     const hasAutenticacao = req.session.usuario !== undefined;
 
-    const _id = req.params._id;
+    const cod = req.params.cod;
+
     let usuario = {};
-    if (_id && hasAutenticacao) {
-      usuario = await Usuario.findOne({ _id });
+    if (cod && hasAutenticacao) {
+      if (req.session.usuario.cod != cod) {
+        // impede que o usuário edite o perfil que não seja dele
+        res.redirect('/usuarios');
+        return;
+      }
+      usuario = await Usuario.findOne({ cod });
     }
 
     let errorMessage = null;
