@@ -1,7 +1,8 @@
+require('dotenv').config();
+
 const express = require('express');
 const session = require('express-session');
 const mongoose = require('mongoose');
-require('dotenv').config();
 const authGuard = require('./middlewares/authGuard');
 
 const app = express();
@@ -18,9 +19,7 @@ app.use(
   }),
 );
 
-mongoose.connect(
-  'mongodb+srv://admin:acs1_admin@cluster0.0sacf0g.mongodb.net/projeto_web_II?retryWrites=true&w=majority&appName=Cluster0',
-);
+mongoose.connect(process.env.MONGO_URI);
 
 app.use(authGuard);
 
@@ -42,6 +41,6 @@ app.use((req, res) => {
   res.status(404).render('404');
 });
 
-app.listen('5500', () => {
+app.listen(process.env.PORT, () => {
   console.log('Server already be running at port 5500:\nhttp://localhost:5500/');
 });
