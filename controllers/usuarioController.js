@@ -138,6 +138,11 @@ class UsuarioController {
     res.clearCookie('connect.sid');
     res.redirect('/usuarios/login');
   }
+
+  static redirectEditarPerfil(req, res) {
+    const usuarioCod = req.session.usuario.cod;
+    res.redirect(`/usuarios/cadastrar/${usuarioCod}`);
+  }
 }
 
 module.exports = UsuarioController;
