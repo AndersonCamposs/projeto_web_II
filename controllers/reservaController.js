@@ -13,10 +13,10 @@ class ReservaController {
   }
 
   static async cadastrar(req, res) {
-    const _id = req.params._id;
+    const cod = req.params.cod;
     let reserva = {};
-    if (_id) {
-      reserva = await Reserva.findOne({ _id }).populate('passageiro').populate('voo');
+    if (cod) {
+      reserva = await Reserva.findOne({ cod }).populate('passageiro').populate('voo');
     }
     const listaVoos = await Voo.find({ data: { $gt: new Date() } }); // lista de voos disponíveis
     res.render('reserva/cadastrar', { reserva, listaVoos, formatarDataHora });
@@ -52,13 +52,9 @@ class ReservaController {
   }
 
   static async deletar(req, res) {
-    const idString = req.params._id;
-    let idObject = null;
-    if (mongoose.Types.ObjectId.isValid(idString)) {
-      idObject = new mongoose.Types.ObjectId(idString);
-    }
+    const cod = req.params.cod;
 
-    await Reserva.deleteOne({ _id: idString });
+    await Reserva.deleteOne({ cod });
 
     res.redirect('/reservas?s=2');
   }

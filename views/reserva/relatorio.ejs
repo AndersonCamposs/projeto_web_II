@@ -39,11 +39,11 @@
                 <a href="/reservas/<%= reserva.cod%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes da reserva">
                   <i class="fa-solid fa-eye"></i>
                 </a>
-                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-toggle="tooltip" title="Excluir dados da Reserva" data-bs-target="#modalExclusao_<%= reserva._id %>">
+                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-toggle="tooltip" title="Excluir dados da Reserva" data-bs-target="#modalExclusao_<%= reserva.cod %>">
                   <i class="fa-solid fa-trash"></i>
                 </button>
                 <!-- Modal -->
-                <div class="modal fade" id="modalExclusao_<%= reserva._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalConfirmacaoExclusaoTitle" aria-hidden="true">
+                <div class="modal fade" id="modalExclusao_<%= reserva.cod %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalConfirmacaoExclusaoTitle" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -54,14 +54,14 @@
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="button" id="btnConfirmarDelecao" class="btn btn-primary" data-id-exclusao="<%= reserva._id%>" onclick="excluirReserva(this)">
+                        <button type="button" id="btnConfirmarDelecao" class="btn btn-primary" data-cod-exclusao="<%= reserva.cod%>" onclick="excluirReserva(this)">
                           Confirmar
                         </button>
                       </div>
                     </div>
                   </div>
                 </div>
-                <a href="/reservas/cadastrar/<%= reserva._id%>" class="btn btn-outline-success px-2" data-bs-toggle="tooltip" title="Editar dados da Reserva">
+                <a href="/reservas/cadastrar/<%= reserva.cod%>" class="btn btn-outline-success px-2" data-bs-toggle="tooltip" title="Editar dados da Reserva">
                   <i class="fa-solid fa-pencil"></i>
                 </a>
               </td>

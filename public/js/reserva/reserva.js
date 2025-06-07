@@ -28,6 +28,6 @@ document.querySelector('#btnBuscarPassageiro').addEventListener('click', async (
 });
 
 function excluirReserva(btn) {
-  const id = btn.dataset.idExclusao;
-  window.location.href = `/reservas/delete/${id}`;
+  const cod = btn.dataset.codExclusao;
+  window.location.href = `/reservas/delete/${cod}`;
 }
