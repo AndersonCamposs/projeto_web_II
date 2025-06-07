@@ -124,7 +124,7 @@ class UsuarioController {
       req.session.usuario = { nome: usuario.nome, email: usuario.email, cod: usuario.cod };
       res.redirect('/');
     } else {
-      res.redirect('/usuarios/login?s=1');
+      res.redirect('/usuarios/login?s=4');
     }
   }
 

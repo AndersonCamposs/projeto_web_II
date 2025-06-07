@@ -19,7 +19,6 @@
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col">Cód.</th>
               <th scope="col">Nome</th>
               <th scope="col">E-mail</th>
               <th scope="col">Data de registro</th>
@@ -29,7 +28,6 @@
           <tbody>
             <% listaUsuarios.forEach((usuario) => { %>
             <tr>
-              <td><%= usuario.cod %></td>
               <td><%= usuario.nome %></td>
               <td><%= usuario.email %></td>
               <td><%=formatDate(usuario.created_at)%></td>
