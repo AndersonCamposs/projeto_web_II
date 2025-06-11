@@ -13,12 +13,19 @@ class VooController {
   }
 
   static async cadastrar(req, res) {
-    const _id = req.params._id;
+    const cod = req.params.cod;
     let voo = {};
-    if (_id) {
-      voo = await Voo.findOne({ _id });
+    if (cod) {
+      voo = await Voo.findOne({ cod });
     }
 
+    if (voo.cod) {
+      // se houver voo
+      if (new Date(voo.data) < new Date()) {
+        res.redirect(`/voos/${voo.cod}`);
+        return;
+      }
+    }
     res.render('voo/cadastrar', { voo });
   }
 
@@ -62,13 +69,13 @@ class VooController {
   }
 
   static async detalhar(req, res) {
-    const idString = req.params._id;
-    let idObject = null;
-    if (mongoose.Types.ObjectId.isValid(idString)) {
-      idObject = new mongoose.Types.ObjectId(idString);
+    const cod = req.params.cod;
+    let jaPassou = false;
+    const voo = await Voo.findOne({ cod });
+    if (voo && new Date(voo.data) < new Date()) {
+      jaPassou = true;
     }
-    const voo = await Voo.findOne({ _id: idObject });
-    res.render('voo/detalhe', { voo, formatDate, formatHour });
+    res.render('voo/detalhe', { voo, formatDate, formatHour, jaPassou });
   }
 
   static async deletar(req, res) {
