@@ -15,12 +15,22 @@ document.querySelector('#btnBuscarPassageiro').addEventListener('click', async (
   try {
     const res = await fetch(`http://localhost:5500/passageiros/search/${cpf}`);
     const json = await res.json();
-    if (res.status === 404) {
-      document.querySelector('#statusBuscaPassageiro').classList.remove('d-none');
+    const msgRetornoBuscaPassageiro = document.querySelector('#msgRetornoBuscaPassageiro');
+    let hasError = false;
+
+    if (res.status === 400) {
+      hasError = true;
+    } else if (res.status === 404) {
+      hasError = true;
     } else {
       document.querySelector('#statusBuscaPassageiro').classList.add('d-none');
       CARD_RESERVA.classList.remove('d-none');
       document.querySelector('#idPassageiro').value = json._id;
+    }
+
+    if (hasError) {
+      document.querySelector('#statusBuscaPassageiro').classList.remove('d-none');
+      msgRetornoBuscaPassageiro.innerHTML = json.mensagem;
     }
   } catch (e) {
     console.log(e);

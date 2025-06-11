@@ -85,6 +85,13 @@ class PassageiroController {
   static async buscarPorCpf(req, res) {
     const cpf = req.params.cpf;
     const passageiro = await Passageiro.findOne({ cpf });
+    const listaPassageiros = await Passageiro.find();
+
+    if (listaPassageiros.length == 0) {
+      res.status(400).json({
+        mensagem: 'Não existem passageiros cadastrados. Adicione algum passageiro para realizar uma reserva.',
+      });
+    }
     if (passageiro) {
       res.status(200).json(passageiro);
     } else {
