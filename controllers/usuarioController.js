@@ -94,13 +94,14 @@ class UsuarioController {
 
   static async deletar(req, res) {
     try {
-      const idString = req.params._id;
-      let idObject = null;
-      if (mongoose.Types.ObjectId.isValid(idString)) {
-        idObject = new mongoose.Types.ObjectId(idString);
+      // o usuário só pode deletar o próprio perfil
+      const cod = req.params.cod;
+      if (cod != req.session.usuario.cod) {
+        res.redirect('/usuarios');
+        return;
       }
-      await Usuario.deleteOne({ _id: idObject });
-      res.redirect('/usuarios?s=2');
+      await Usuario.deleteOne({ cod });
+      res.redirect('/usuarios/logout');
     } catch (e) {
       console.log(e);
     }

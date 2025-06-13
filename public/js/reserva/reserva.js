@@ -21,6 +21,7 @@ document.querySelector('#btnBuscarPassageiro').addEventListener('click', async (
     if (res.status === 400) {
       hasError = true;
     } else if (res.status === 404) {
+      console.log(json);
       hasError = true;
     } else {
       document.querySelector('#statusBuscaPassageiro').classList.add('d-none');

@@ -9,7 +9,7 @@ routes.post('/login', usuarioController.loginPost);
 routes.get('/logout', usuarioController.logout);
 routes.get('/editarPerfil', usuarioController.redirectEditarPerfil);
 routes.get('/cadastrar/:cod?', usuarioController.cadastrar);
-routes.get('/delete/:_id', usuarioController.deletar);
+routes.get('/delete/:cod', usuarioController.deletar);
 routes.get('/:cod', usuarioController.detalhar);
 routes.post('/', usuarioController.salvar);
 

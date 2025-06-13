@@ -91,11 +91,12 @@ class PassageiroController {
       res.status(400).json({
         mensagem: 'Não existem passageiros cadastrados. Adicione algum passageiro para realizar uma reserva.',
       });
-    }
-    if (passageiro) {
-      res.status(200).json(passageiro);
     } else {
-      res.status(404).json({ mensagem: 'Passageiro não encontrado.' });
+      if (passageiro) {
+        res.status(200).json(passageiro);
+      } else {
+        res.status(404).json({ mensagem: 'Passageiro não encontrado.' });
+      }
     }
   }
 

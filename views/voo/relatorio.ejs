@@ -34,10 +34,10 @@
               <td><%= `${voo.cidadeDestino} - ${voo.estadoDestino}, ${voo.paisDestino}` %></td>
               <td> <%=formatDate(voo.data)%> </td>
               <td>
-                <a href="/voos/<%= voo.cod%>" class="btn btn-outline-info px-2" data-bs-toggle="tooltip" title="Exibir detalhes do voo">
+                <a href="/voos/<%= voo.cod%>" class="btn btn-outline-info mb-2" data-bs-toggle="tooltip" title="Exibir detalhes do voo">
                   <i class="fa-solid fa-eye"></i>
                 </a>
-                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-toggle="tooltip" title="Excluir dados do Voo" data-bs-target="#modalExclusao_<%= voo._id %>">
+                <button type="button" class="btn btn-outline-danger mb-2" data-bs-toggle="modal" data-bs-toggle="tooltip" title="Excluir dados do Voo" data-bs-target="#modalExclusao_<%= voo._id %>">
                   <i class="fa-solid fa-trash"></i>
                 </button>
                 <!-- Modal -->
@@ -59,7 +59,7 @@
                     </div>
                   </div>
                 </div>
-                <a href="/voos/cadastrar/<%= voo.cod%>" class="btn btn-outline-success px-2" data-bs-toggle="tooltip" title="Editar dados do Voo">
+                <a href="/voos/cadastrar/<%= voo.cod%>" class="btn btn-outline-success mb-2" data-bs-toggle="tooltip" title="Editar dados do Voo">
                   <i class="fa-solid fa-pencil"></i>
                 </a>
               </td>

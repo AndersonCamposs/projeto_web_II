@@ -27,13 +27,13 @@
           </div>
         </div>
         <% if (listaVoos && listaVoos.length === 0) { %>
-          <div class="row d-flex justify-content-center">
-            <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-              <div class="alert alert-warning text-center" id="statusEscolhaVoo">
-                Não há voos cadastrados. Adicione voos para conseguir realizar uma reserva, <a href="/voos/cadastrar" class="alert-link">clique aqui</a> para adicionar.
-              </div>
+        <div class="row d-flex justify-content-center">
+          <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+            <div class="alert alert-warning text-center" id="statusEscolhaVoo">
+              Não há voos cadastrados. Adicione voos para conseguir realizar uma reserva. <a href="/voos/cadastrar" class="alert-link">clique aqui</a> para adicionar.
             </div>
           </div>
+        </div>
         <% } else if (!reserva.voo) { %>
         <div class="row d-flex justify-content-center">
           <div class="col-12 col-sm-12 col-md-8 col-lg-6">
