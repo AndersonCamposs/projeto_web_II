@@ -2,134 +2,137 @@
 <html lang="en">
 <%- include('../partials/head', { title: "Cadastrar reserva" }) %>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
   <%- include('../partials/navBar') %>
-  <div class="container">
-    <p class="text-center fs-3 my-3">Realizar reserva</p>
-    <div class="card mb-3" id="cardbuscaVoo">
-      <div class="card-header">
-        <i class="fa-solid fa-plane-departure"></i> Buscar voo
-      </div>
-      <div class="card-body">
-        <div class="row d-flex justify-content-center">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="input-group mb-3">
-              <label class="input-group-text" for="selectVooReserva">Options</label>
-              <select class="form-select" id="selectVooReserva" aria-label="Select para escolha do voo em que vai ser feita a reserva" required>
-                <option <%= reserva.voo ? "" : "selected" %> disabled value="">Escolha o voo</option>
-                <% listaVoos.forEach((voo) => { %>
-                <option <%= reserva.voo && reserva.voo._id === voo._id ? "select" : "" %> value="<%= voo.id %>">
-                  <%= `${voo.cidadeOrigem} - ${voo.cidadeDestino}(${formatarDataHora(voo.data)})` %>
-                </option>
-                <% }) %>
-              </select>
-            </div>
-          </div>
+  <main class="flex-grow-1">
+    <div class="container">
+      <p class="text-center fs-3 my-3">Realizar reserva</p>
+      <div class="card mb-3" id="cardbuscaVoo">
+        <div class="card-header">
+          <i class="fa-solid fa-plane-departure"></i> Buscar voo
         </div>
-        <% if (listaVoos && listaVoos.length === 0) { %>
-        <div class="row d-flex justify-content-center">
-          <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-            <div class="alert alert-warning text-center" id="statusEscolhaVoo">
-              Não há voos cadastrados. Adicione voos para conseguir realizar uma reserva. <a href="/voos/cadastrar" class="alert-link">clique aqui</a> para adicionar.
-            </div>
-          </div>
-        </div>
-        <% } else if (!reserva.voo) { %>
-        <div class="row d-flex justify-content-center">
-          <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-            <div class="alert alert-warning text-center" id="statusEscolhaVoo">
-              Selecione um voo para prosseguir com a reserva.
-            </div>
-          </div>
-        </div>
-        <% } %>
-
-      </div>
-    </div>
-
-    <div class="card mb-3 <%= reserva.voo ? '' : 'd-none' %>" id="cardBuscaPassageiro">
-      <div class="card-header">
-        <i class="fa-solid fa-person-walking-luggage"></i> Buscar Passageiro
-      </div>
-      <div class="card-body">
-        <div class="row d-flex justify-content-center">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-            <div class="input-group mb-3">
-              <div class="form-floating mb-1">
-                <input type="text" class="form-control" id="cpfInput" required maxlength="14" placeholder="CPF do passageiro" value="<%= reserva.passageiro? reserva.passageiro.cpf : ''%>">
-                <label for="cpfInput">CPF do passageiro</label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row d-flex justify-content-center">
-          <div class="col-12 col-sm-12 col-md-8 col-lg-6 d-flex justify-content-center">
-            <button id="btnBuscarPassageiro" class="btn btn-primary">Buscar</button>
-          </div>
-        </div>
-        <div class="row d-flex justify-content-center mt-3 d-none" id="statusBuscaPassageiro">
-          <div class="col-12 col-sm-12 col-md-8 col-lg-6">
-            <div class="alert alert-warning text-center" id="msgRetornoBuscaPassageiro">
-              Passageiro não encontrado.
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card mb-3 <%= reserva.voo && reserva.passageiro ? '' : 'd-none' %>" id="cardReserva">
-      <div class="card-header">
-        <i class="fa-solid fa-ticket"></i> Realizar reserva
-      </div>
-      <div class="card-body">
-        <form action="/reservas" method="post">
-          <input type="hidden" name="_id" value="<%= reserva._id %>">
-          <input type="hidden" name="cod" value="<%= reserva.cod %>">
-          <input type="hidden" name="idVoo" id="idVoo" value="<%= reserva.voo ? reserva.voo.id : '' %>">
-          <input type="hidden" name="idPassageiro" id="idPassageiro" value="<%= reserva.passageiro ? reserva.passageiro.id : '' %>">
-
-
+        <div class="card-body">
           <div class="row d-flex justify-content-center">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <div class="input-group mb-3">
-                <div class="form-floating mb-1">
-                  <input type="number" step="0.01" class="form-control" id="valorReservaInput" required placeholder="Valor da reserva" name="valorReserva" value="<%= reserva.valor %>">
-                  <label for="valorReservaInput">Valor da reserva (R$)</label>
-                </div>
+                <label class="input-group-text" for="selectVooReserva">Options</label>
+                <select class="form-select" id="selectVooReserva" aria-label="Select para escolha do voo em que vai ser feita a reserva" required>
+                  <option <%= reserva.voo ? "" : "selected" %> disabled value="">Escolha o voo</option>
+                  <% listaVoos.forEach((voo) => { %>
+                  <option <%= reserva.voo && reserva.voo._id === voo._id ? "select" : "" %> value="<%= voo.id %>">
+                    <%= `${voo.cidadeOrigem} - ${voo.cidadeDestino}(${formatarDataHora(voo.data)})` %>
+                  </option>
+                  <% }) %>
+                </select>
               </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+          </div>
+          <% if (listaVoos && listaVoos.length === 0) { %>
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+              <div class="alert alert-warning text-center" id="statusEscolhaVoo">
+                Não há voos cadastrados. Adicione voos para conseguir realizar uma reserva. <a href="/voos/cadastrar" class="alert-link">clique aqui</a> para adicionar.
+              </div>
+            </div>
+          </div>
+          <% } else if (!reserva.voo) { %>
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+              <div class="alert alert-warning text-center" id="statusEscolhaVoo">
+                Selecione um voo para prosseguir com a reserva.
+              </div>
+            </div>
+          </div>
+          <% } %>
+
+        </div>
+      </div>
+
+      <div class="card mb-3 <%= reserva.voo ? '' : 'd-none' %>" id="cardBuscaPassageiro">
+        <div class="card-header">
+          <i class="fa-solid fa-person-walking-luggage"></i> Buscar Passageiro
+        </div>
+        <div class="card-body">
+          <div class="row d-flex justify-content-center">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <div class="input-group mb-3">
                 <div class="form-floating mb-1">
-                  <select class="form-select" id="tipoPagamentoSelect" aria-label="Floating label select example" required name="tipoPagamento">
-                    <option selected disabled value="">Selecione uma opção de pagamento</option>
-                    <option value="PIX" <%= reserva.tipoPagamento === 'PIX' ? 'selected' :  ''%>>Pix</option>
-                    <option value="CARTÃO CRÉDITO/DÉBITO" <%= reserva.tipoPagamento === 'CARTÃO CRÉDITO/DÉBITO' ? 'selected' :  ''%>>Cartão de crédito/débito</option>
-                    <option value="DINHEIRO" <%= reserva.tipoPagamento === 'DINHEIRO' ? 'selected' :  ''%>>Dinheiro</option>
-                  </select>
-                  <label for="tipoPagamentoSelect">Forma de pagamento</label>
+                  <input type="text" class="form-control" id="cpfInput" required maxlength="14" placeholder="CPF do passageiro" value="<%= reserva.passageiro? reserva.passageiro.cpf : ''%>">
+                  <label for="cpfInput">CPF do passageiro</label>
                 </div>
               </div>
             </div>
           </div>
-
           <div class="row d-flex justify-content-center">
-            <div class="col-12 col-sm-4 col-md-4 col-lg-4 d-flex justify-content-center">
-              <button type="submit" class="btn btn-primary">Confirmar</button>
+            <div class="col-12 col-sm-12 col-md-8 col-lg-6 d-flex justify-content-center">
+              <button id="btnBuscarPassageiro" class="btn btn-primary">Buscar</button>
             </div>
           </div>
-        </form>
-
+          <div class="row d-flex justify-content-center mt-3 d-none" id="statusBuscaPassageiro">
+            <div class="col-12 col-sm-12 col-md-8 col-lg-6">
+              <div class="alert alert-warning text-center" id="msgRetornoBuscaPassageiro">
+                Passageiro não encontrado.
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <div class="row mb-3">
-      <div class="col-12 col-sm-4 col-md-4 col-lg-3">
-        <button class="btn btn-danger" onclick="location.reload()">Limpar</button>
+      <div class="card mb-3 <%= reserva.voo && reserva.passageiro ? '' : 'd-none' %>" id="cardReserva">
+        <div class="card-header">
+          <i class="fa-solid fa-ticket"></i> Realizar reserva
+        </div>
+        <div class="card-body">
+          <form action="/reservas" method="post">
+            <input type="hidden" name="_id" value="<%= reserva._id %>">
+            <input type="hidden" name="cod" value="<%= reserva.cod %>">
+            <input type="hidden" name="idVoo" id="idVoo" value="<%= reserva.voo ? reserva.voo.id : '' %>">
+            <input type="hidden" name="idPassageiro" id="idPassageiro" value="<%= reserva.passageiro ? reserva.passageiro.id : '' %>">
+
+
+            <div class="row d-flex justify-content-center">
+              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating mb-1">
+                    <input type="number" step="0.01" class="form-control" id="valorReservaInput" required placeholder="Valor da reserva" name="valorReserva" value="<%= reserva.valor %>">
+                    <label for="valorReservaInput">Valor da reserva (R$)</label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="input-group mb-3">
+                  <div class="form-floating mb-1">
+                    <select class="form-select" id="tipoPagamentoSelect" aria-label="Floating label select example" required name="tipoPagamento">
+                      <option selected disabled value="">Selecione uma opção de pagamento</option>
+                      <option value="PIX" <%= reserva.tipoPagamento === 'PIX' ? 'selected' :  ''%>>Pix</option>
+                      <option value="CARTÃO CRÉDITO/DÉBITO" <%= reserva.tipoPagamento === 'CARTÃO CRÉDITO/DÉBITO' ? 'selected' :  ''%>>Cartão de crédito/débito</option>
+                      <option value="DINHEIRO" <%= reserva.tipoPagamento === 'DINHEIRO' ? 'selected' :  ''%>>Dinheiro</option>
+                    </select>
+                    <label for="tipoPagamentoSelect">Forma de pagamento</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row d-flex justify-content-center">
+              <div class="col-12 col-sm-4 col-md-4 col-lg-4 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Confirmar</button>
+              </div>
+            </div>
+          </form>
+
+        </div>
       </div>
-    </div>
 
-  </div>
+      <div class="row mb-3">
+        <div class="col-12 col-sm-4 col-md-4 col-lg-3">
+          <button class="btn btn-danger" onclick="location.reload()">Limpar</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <%- include('../partials/footer') %>
   <script src="/js/reserva/reserva.js"></script>
   <script src="/js/formatterUtils.js"></script>
 </body>

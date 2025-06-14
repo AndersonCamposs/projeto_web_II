@@ -2,154 +2,158 @@
 <html lang="en">
 <%- include('../partials/head', { title: "Detalhe de reserva" }) %>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
   <%- include('../partials/navBar') %>
-  <div class="container mt-3">
-    <% if (!reserva) { %>
-    <div class="alert alert-warning text-center" role="alert">
-      Reserva não encontrada. Para listar todqas as reservas, <a href="/reservas" class="alert-link">clique aqui</a>.
-    </div>
-    <% } else { %>
-    <p class="text-center fs-3 my-3">Informações da reserva</p>
-    <div class="card mb-3">
-      <div class="card-header">
-        <i class="fa-solid fa-circle-info"></i> Informações cadastradas
+  <main class="flex-grow-1">
+    <div class="container mt-3">
+      <% if (!reserva) { %>
+      <div class="alert alert-warning text-center" role="alert">
+        Reserva não encontrada. Para listar todqas as reservas, <a href="/reservas" class="alert-link">clique aqui</a>.
       </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Código da reserva">Cód.</button>
-              <input type="text" class="form-control" value="<%= reserva.cod%>" aria-describedby="button-addon1" readonly>
+      <% } else { %>
+      <p class="text-center fs-3 my-3">Informações da reserva</p>
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa-solid fa-circle-info"></i> Informações cadastradas
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Código da reserva">Cód.</button>
+                <input type="text" class="form-control" value="<%= reserva.cod%>" aria-describedby="button-addon1" readonly>
+              </div>
             </div>
-          </div>
 
-          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Valor da reserva">Valor (R$)</button>
-              <input type="text" class="form-control" value="<%= reserva.valor%>" aria-describedby="button-addon1" readonly>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Valor da reserva">Valor (R$)</button>
+                <input type="text" class="form-control" value="<%= reserva.valor%>" aria-describedby="button-addon1" readonly>
+              </div>
             </div>
-          </div>
 
-          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Forma do pagamento">Pagamento</button>
-              <input type="text" class="form-control" value="<%= reserva.tipoPagamento%>" aria-describedby="button-addon1" readonly>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Forma do pagamento">Pagamento</button>
+                <input type="text" class="form-control" value="<%= reserva.tipoPagamento%>" aria-describedby="button-addon1" readonly>
+              </div>
             </div>
-          </div>
 
-          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Data da reserva">Data</button>
-              <input type="text" class="form-control" value="<%= formatDate(reserva.created_at)%>" aria-describedby="button-addon1" readonly>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Data da reserva">Data</button>
+                <input type="text" class="form-control" value="<%= formatDate(reserva.created_at)%>" aria-describedby="button-addon1" readonly>
+              </div>
             </div>
-          </div>
 
-          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-            <div class="input-group mb-1">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Passageiro da reserva">Passageiro</button>
-              <input type="text" class="form-control" value="<%= reserva.passageiro.nome %>" aria-describedby="button-addon1" readonly>
-            </div>
-            <p>
-              <a href="#" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#modalDetalhesPassageiro">
-                <i class="fa-solid fa-circle-info"></i> Detalhes do passageiro
-              </a>
-            </p>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+              <div class="input-group mb-1">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Passageiro da reserva">Passageiro</button>
+                <input type="text" class="form-control" value="<%= reserva.passageiro.nome %>" aria-describedby="button-addon1" readonly>
+              </div>
+              <p>
+                <a href="#" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#modalDetalhesPassageiro">
+                  <i class="fa-solid fa-circle-info"></i> Detalhes do passageiro
+                </a>
+              </p>
 
-            <div class="modal fade" id="modalDetalhesPassageiro" tabindex="-1" aria-labelledby="modalPassageiro" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title fs-5" id="modalPassageiro">
-                      <%= "Dados do passageiro" %>
-                    </h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <h6>Dados pessoais</h6>
-                    Nome: <%= reserva.passageiro.nome %> <br>
-                    CPF: <%= reserva.passageiro.cpf %> <br>
-                    RG: <%= reserva.passageiro.rg %> <br>
-                    Data de Nascimento: <%= formatDate(reserva.passageiro.dataNascimento) %>
-                    <hr>
+              <div class="modal fade" id="modalDetalhesPassageiro" tabindex="-1" aria-labelledby="modalPassageiro" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3 class="modal-title fs-5" id="modalPassageiro">
+                        <%= "Dados do passageiro" %>
+                      </h3>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h6>Dados pessoais</h6>
+                      Nome: <%= reserva.passageiro.nome %> <br>
+                      CPF: <%= reserva.passageiro.cpf %> <br>
+                      RG: <%= reserva.passageiro.rg %> <br>
+                      Data de Nascimento: <%= formatDate(reserva.passageiro.dataNascimento) %>
+                      <hr>
 
-                    <h6>Endereço</h6>
-                    Logradouro: <%= reserva.passageiro.logradouro %> <br>
-                    Bairro: <%= reserva.passageiro.bairro %> <br>
-                    Cidade: <%= reserva.passageiro.cidade %> <br>
-                    Estado: <%= reserva.passageiro.estado %>
+                      <h6>Endereço</h6>
+                      Logradouro: <%= reserva.passageiro.logradouro %> <br>
+                      Bairro: <%= reserva.passageiro.bairro %> <br>
+                      Número: <%= reserva.passageiro.numeroResidencia %> <br>
+                      Cidade: <%= reserva.passageiro.cidade %> <br>
+                      Estado: <%= reserva.passageiro.estado %>
 
-                    <hr>
+                      <hr>
 
-                    <h6>Contato</h6>
-                    Telefone: <%= reserva.passageiro.telefone %> <br>
+                      <h6>Contato</h6>
+                      Telefone: <%= reserva.passageiro.telefone %> <br>
 
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-            <div class="input-group mb-1">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Código do voo da reserva">Cód. voo</button>
-              <input type="text" class="form-control" value="<%= reserva.voo.cod %>" aria-describedby="button-addon1" readonly>
-            </div>
-            <p>
-              <a href="#" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#modalDetalhesVoo">
-                <i class="fa-solid fa-circle-info"></i> Detalhes do voo
-              </a>
-            </p>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+              <div class="input-group mb-1">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Código do voo da reserva">Cód. voo</button>
+                <input type="text" class="form-control" value="<%= reserva.voo.cod %>" aria-describedby="button-addon1" readonly>
+              </div>
+              <p>
+                <a href="#" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" data-bs-toggle="modal" data-bs-target="#modalDetalhesVoo">
+                  <i class="fa-solid fa-circle-info"></i> Detalhes do voo
+                </a>
+              </p>
 
-            <div class="modal fade" id="modalDetalhesVoo" tabindex="-1" aria-labelledby="modalVoo" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#modalDetalhesVoo">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h3 class="modal-title fs-5" id="modalVoo">
-                      <%= "Dados do voo" %>
-                    </h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <h6>Origem</h6>
-                    País: <%= reserva.voo.paisOrigem %> <br>
-                    Estado: <%= reserva.voo.estadoOrigem%> <br>
-                    Cidade <%= reserva.voo.cidadeOrigem %> <br>
+              <div class="modal fade" id="modalDetalhesVoo" tabindex="-1" aria-labelledby="modalVoo" aria-hidden="true" data-bs-toggle="modal" data-bs-target="#modalDetalhesVoo">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h3 class="modal-title fs-5" id="modalVoo">
+                        <%= "Dados do voo" %>
+                      </h3>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <h6>Origem</h6>
+                      País: <%= reserva.voo.paisOrigem %> <br>
+                      Estado: <%= reserva.voo.estadoOrigem%> <br>
+                      Cidade <%= reserva.voo.cidadeOrigem %> <br>
 
-                    <hr>
+                      <hr>
 
-                    <h6>Destino</h6>
-                    País: <%= reserva.voo.paisDestino %> <br>
-                    Estado: <%= reserva.voo.estadoDestino %> <br>
-                    Cidade <%= reserva.voo.cidadeDestino %> <br>
+                      <h6>Destino</h6>
+                      País: <%= reserva.voo.paisDestino %> <br>
+                      Estado: <%= reserva.voo.estadoDestino %> <br>
+                      Cidade <%= reserva.voo.cidadeDestino %> <br>
 
-                    <hr>
+                      <hr>
 
-                    <h6>Data e hora</h6>
-                    <%= `${formatDate(reserva.voo.data)}, ${formatHour(reserva.voo.data)}` %> <br>
+                      <h6>Data e hora</h6>
+                      <%= `${formatDate(reserva.voo.data)}, ${formatHour(reserva.voo.data)}` %> <br>
 
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
 
+          </div>
         </div>
       </div>
+      <p>
+        <a href="/reservas" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+          <i class="fa-solid fa-arrow-left"></i> Voltar para listagem
+        </a>
+      </p>
+      <% } %>
     </div>
-    <p>
-      <a href="/reservas" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
-        <i class="fa-solid fa-arrow-left"></i> Voltar para listagem
-      </a>
-    </p>
-    <% } %>
-  </div>
+  </main>
+  <%- include('../partials/footer') %>
 
 </body>
 
