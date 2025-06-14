@@ -3,106 +3,110 @@
 
 <%- include('../partials/head', { title: "Detalhe de passageiro" }) %>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
   <%- include('../partials/navBar') %>
-  <div class="container mt-3">
-    <% if (!passageiro) { %>
-    <div class="alert alert-warning text-center" role="alert">
-      Passageiro não encontrado. Para listar todos os passageiros, <a href="/passageiros" class="alert-link">clique aqui</a>.
+  <main class="flex-grow-1">
+    <div class="container mt-3">
+      <% if (!passageiro) { %>
+      <div class="alert alert-warning text-center" role="alert">
+        Passageiro não encontrado. Para listar todos os passageiros, <a href="/passageiros" class="alert-link">clique aqui</a>.
+      </div>
+      <% } else { %>
+      <p class="text-center fs-3 my-3">Informações do passageiro</p>
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa-solid fa-circle-info"></i> Informações pessoais
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">Nome</button>
+                <input type="text" class="form-control" value="<%= passageiro.nome%>" aria-describedby="button-addon1" readonly>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="CPF do passageiro">CPF</button>
+                <input type="text" class="form-control" value="<%= passageiro.cpf%>" aria-describedby="button-addon1" readonly>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-3">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="RG do passageiro">RG</button>
+                <input type="text" class="form-control" value="<%= passageiro.rg%>" aria-describedby="button-addon1" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Data de nascimento do passageiro">Nascimento</button>
+                <input type="text" class="form-control" value="<%= formatDate(passageiro.dataNascimento)%>" aria-describedby="button-addon1" readonly>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-5">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Telefone do passageiro">Telefone</button>
+                <input type="text" class="form-control" value="<%= passageiro.telefone%>" aria-describedby="button-addon1" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa-solid fa-house-user me-1"></i> Informações do endereço
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Estado do passageiro">Estado</button>
+                <input type="text" class="form-control" value="<%= passageiro.estado %>" aria-describedby="button-addon1" readonly>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Cidade do passageiro">Cidade</button>
+                <input type="text" class="form-control" value="<%= passageiro.cidade %>" aria-describedby="button-addon1" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Logradouro do passageiro">Logradouro</button>
+                <input type="text" class="form-control" value="<%= passageiro.logradouro %>" aria-describedby="button-addon1" readonly>
+              </div>
+            </div>
+            <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Bairro do passageiro">Bairro</button>
+                <input type="text" class="form-control" value="<%= passageiro.bairro %>" aria-describedby="button-addon1" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+              <div class="input-group mb-3">
+                <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Número residencial do passageiro">Número</button>
+                <input type="text" class="form-control" value="<%= passageiro.numeroResidencia %>" aria-describedby="button-addon1" readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p>
+        <a href="/passageiros" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+          <i class="fa-solid fa-arrow-left"></i> Voltar para listagem
+        </a>
+      </p>
+      <% } %>
     </div>
-    <% } else { %>
-    <p class="text-center fs-3 my-3">Informações do passageiro</p>
-    <div class="card mb-3">
-      <div class="card-header">
-        <i class="fa-solid fa-circle-info"></i> Informações pessoais
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Nome do passageiro">Nome</button>
-              <input type="text" class="form-control" value="<%= passageiro.nome%>" aria-describedby="button-addon1" readonly>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-3">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="CPF do passageiro">CPF</button>
-              <input type="text" class="form-control" value="<%= passageiro.cpf%>" aria-describedby="button-addon1" readonly>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-3">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="RG do passageiro">RG</button>
-              <input type="text" class="form-control" value="<%= passageiro.rg%>" aria-describedby="button-addon1" readonly>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Data de nascimento do passageiro">Nascimento</button>
-              <input type="text" class="form-control" value="<%= formatDate(passageiro.dataNascimento)%>" aria-describedby="button-addon1" readonly>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-6 col-lg-5">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Telefone do passageiro">Telefone</button>
-              <input type="text" class="form-control" value="<%= passageiro.telefone%>" aria-describedby="button-addon1" readonly>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="card mb-3">
-      <div class="card-header">
-        <i class="fa-solid fa-house-user me-1"></i> Informações do endereço
-      </div>
-      <div class="card-body">
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Estado do passageiro">Estado</button>
-              <input type="text" class="form-control" value="<%= passageiro.estado %>" aria-describedby="button-addon1" readonly>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Cidade do passageiro">Cidade</button>
-              <input type="text" class="form-control" value="<%= passageiro.cidade %>" aria-describedby="button-addon1" readonly>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Logradouro do passageiro">Logradouro</button>
-              <input type="text" class="form-control" value="<%= passageiro.logradouro %>" aria-describedby="button-addon1" readonly>
-            </div>
-          </div>
-          <div class="col-12 col-sm-12 col-md-12 col-lg-6">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Bairro do passageiro">Bairro</button>
-              <input type="text" class="form-control" value="<%= passageiro.bairro %>" aria-describedby="button-addon1" readonly>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-4 col-lg-3">
-            <div class="input-group mb-3">
-              <button class="btn btn-secondary btn-fixed" type="button" id="button-addon1" data-bs-toggle="tooltip" title="Número residencial do passageiro">Número</button>
-              <input type="text" class="form-control" value="<%= passageiro.numeroResidencia %>" aria-describedby="button-addon1" readonly>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <p>
-      <a href="/passageiros" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
-        <i class="fa-solid fa-arrow-left"></i> Voltar para listagem
-      </a>
-    </p>
-    <% } %>
-  </div>
+  </main>
+  <%- include('../partials/footer') %>
+
 </body>
 
 </html>

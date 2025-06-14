@@ -2,94 +2,97 @@
 <html lang="en">
 <%- include('../partials/head', { title: "Relatório de passageiros" }) %>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
   <%- include('../partials/navBar') %>
-  <div class="container mt-3">
-    <% if (listaPassageiros.length === 0) { %>
-    <div class="alert alert-warning text-center" role="alert">
-      Não há passageiros cadastrados. Para adicionar passageiros, <a href="/passageiros/cadastrar" class="alert-link">clique aqui</a>.
-    </div>
-    <% } else { %>
-    <p class="text-center fs-3 my-3">Lista de passageiros</p>
-    <div class="card">
-      <div class="card-header">
-        <i class="fa-solid fa-list"></i> Listagem de passageiros cadastrados
+  <main class="flex-grow-1">
+    <div class="container mt-3">
+      <% if (listaPassageiros.length === 0) { %>
+      <div class="alert alert-warning text-center" role="alert">
+        Não há passageiros cadastrados. Para adicionar passageiros, <a href="/passageiros/cadastrar" class="alert-link">clique aqui</a>.
       </div>
-      <div class="card-body px-0">
-        <table class="table table-hover">
-          <thead>
-            <tr>
-              <th scope="col">Nome</th>
-              <th scope="col">CPF</th>
-              <th scope="col">Data de Nascimento</th>
-              <th scope="col">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% listaPassageiros.forEach((passageiro) => { %>
-            <tr>
-              <td><%= passageiro.nome %></td>
-              <td><%= passageiro.cpf %></td>
-              <td><%=formatDate(passageiro.dataNascimento)%></td>
-              <td>
-                <a href="/passageiros/<%= passageiro._id%>" class="btn btn-outline-info mb-2" data-bs-toggle="tooltip" title="Exibir detalhes do passageiro">
-                  <i class="fa-solid fa-eye"></i>
-                </a>
-                <button type="button" class="btn btn-outline-danger mb-2" data-bs-toggle="modal" data-bs-toggle="tooltip" title="Excluir dados do Passageiro" data-bs-target="#modalExclusao_<%= passageiro._id %>">
-                  <i class="fa-solid fa-trash"></i>
-                </button>
-                <!-- Modal -->
-                <div class="modal fade" id="modalExclusao_<%= passageiro._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalConfirmacaoExclusaoTitle" aria-hidden="true">
-                  <div class="modal-dialog">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="modalConfirmacaoExclusaoTitle">Confirmação de Exclusão</h1>
-                      </div>
-                      <div class="modal-body">
-                        Tem certeza que deseja excluir o passageiro <strong><%= passageiro.nome %></strong>, de CPF <strong><%= passageiro.cpf %></strong>?
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="button" id="btnConfirmarDelecao" class="btn btn-primary" data-id-exclusao="<%= passageiro._id%>" onclick="excluirPassageiro(this)">
-                          Confirmar
-                        </button>
+      <% } else { %>
+      <p class="text-center fs-3 my-3">Lista de passageiros</p>
+      <div class="card">
+        <div class="card-header">
+          <i class="fa-solid fa-list"></i> Listagem de passageiros cadastrados
+        </div>
+        <div class="card-body px-0">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">CPF</th>
+                <th scope="col">Data de Nascimento</th>
+                <th scope="col">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% listaPassageiros.forEach((passageiro) => { %>
+              <tr>
+                <td><%= passageiro.nome %></td>
+                <td><%= passageiro.cpf %></td>
+                <td><%=formatDate(passageiro.dataNascimento)%></td>
+                <td>
+                  <a href="/passageiros/<%= passageiro._id%>" class="btn btn-outline-info mb-2" data-bs-toggle="tooltip" title="Exibir detalhes do passageiro">
+                    <i class="fa-solid fa-eye"></i>
+                  </a>
+                  <button type="button" class="btn btn-outline-danger mb-2" data-bs-toggle="modal" data-bs-toggle="tooltip" title="Excluir dados do Passageiro" data-bs-target="#modalExclusao_<%= passageiro._id %>">
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                  <!-- Modal -->
+                  <div class="modal fade" id="modalExclusao_<%= passageiro._id %>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalConfirmacaoExclusaoTitle" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="modalConfirmacaoExclusaoTitle">Confirmação de Exclusão</h1>
+                        </div>
+                        <div class="modal-body">
+                          Tem certeza que deseja excluir o passageiro <strong><%= passageiro.nome %></strong>, de CPF <strong><%= passageiro.cpf %></strong>?
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                          <button type="button" id="btnConfirmarDelecao" class="btn btn-primary" data-id-exclusao="<%= passageiro._id%>" onclick="excluirPassageiro(this)">
+                            Confirmar
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <a href="/passageiros/cadastrar/<%= passageiro._id%>" class="btn btn-outline-success mb-2" data-bs-toggle="tooltip" title="Editar dados do passageiro">
-                  <i class="fa-solid fa-pencil"></i>
-                </a>
-              </td>
-            </tr>
-            <% }) %>
-          </tbody>
-        </table>
-      </div>
-      <div class="card-footer">
-        <p class="my-1">
-          <a href="/passageiros/cadastrar" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
-            <i class="fa-solid fa-plus"></i> Adicionar passageiro
-          </a>
-        </p>
-      </div>
-    </div>
-    <% } %>
-    <div class="toast-container position-fixed top-0 end-0 p-3">
-      <input type="hidden" id="status" value="<%= s %>">
-      <div id="statusToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header text-success">
-          <i class="fa-solid fa-square-check me-2"></i>
-          <strong class="me-auto" id="toast-title"></strong>
-          <small> <%= `${new Date().getHours().toString().padStart(2, "0")}:${new Date().getMinutes().toString().padStart(2, "0")}` %> </small>
-          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                  <a href="/passageiros/cadastrar/<%= passageiro._id%>" class="btn btn-outline-success mb-2" data-bs-toggle="tooltip" title="Editar dados do passageiro">
+                    <i class="fa-solid fa-pencil"></i>
+                  </a>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
         </div>
-        <div class="toast-body" id="toast-body-content">
+        <div class="card-footer">
+          <p class="my-1">
+            <a href="/passageiros/cadastrar" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+              <i class="fa-solid fa-plus"></i> Adicionar passageiro
+            </a>
+          </p>
+        </div>
+      </div>
+      <% } %>
+      <div class="toast-container position-fixed top-0 end-0 p-3">
+        <input type="hidden" id="status" value="<%= s %>">
+        <div id="statusToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header text-success">
+            <i class="fa-solid fa-square-check me-2"></i>
+            <strong class="me-auto" id="toast-title"></strong>
+            <small> <%= `${new Date().getHours().toString().padStart(2, "0")}:${new Date().getMinutes().toString().padStart(2, "0")}` %> </small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body" id="toast-body-content">
 
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  </main>
+  <%- include('../partials/footer') %>
 
   <script src="/js/passageiro/passageiro.js"></script>
   <script src="/js/toastManager.js"></script>

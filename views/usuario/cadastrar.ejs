@@ -2,73 +2,73 @@
 <html lang="en">
 <%- include('../partials/head', { title: "Cadastrar usuário" }) %>
 
-<body class="d-flex flex-column min-vh-100"></body>
-<% if (hasAutenticacao) { %>
-<%- include('../partials/navBar') %>
-<% } %>
+<body class="d-flex flex-column min-vh-100">
+  <% if (hasAutenticacao) { %>
+  <%- include('../partials/navBar') %>
+  <% } %>
 
-<main class="flex-grow-1">
-  <div class="container">
-    <% if (!hasAutenticacao) { %>
-    <p class="text-center fs-3 my-3">Registre-se</p>
-    <% } else { %>
-    <p class="text-center fs-3 my-3"><%= usuario._id ? "Atualizar Usuário" : "Cadastrar Usuário"%></p>
-    <% } %>
+  <main class="flex-grow-1">
+    <div class="container">
+      <% if (!hasAutenticacao) { %>
+      <p class="text-center fs-3 my-3">Registre-se</p>
+      <% } else { %>
+      <p class="text-center fs-3 my-3"><%= usuario._id ? "Atualizar Usuário" : "Cadastrar Usuário"%></p>
+      <% } %>
 
-    <div class="card mb-3">
-      <div class="card-header">
-        <i class="fa-solid fa-pencil me-1"></i>Preencha os dados do usuário
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa-solid fa-pencil me-1"></i>Preencha os dados do usuário
+        </div>
+        <div class="card-body">
+          <form action="/usuarios" method="post" autocomplete="off">
+            <input type="hidden" name="_id" value="<%= usuario._id %>">
+            <input type="hidden" name="cod" value="<%= usuario.cod %>">
+
+            <i class="fa-solid fa-user me-1"></i> Dados do usuário
+            <div class="row my-2">
+              <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                <div class="form-floating mb-3">
+                  <input type="text" class="form-control" id="nomeInput" required placeholder="Nome do passageiro" name="nome" value="<%= usuario.nome %>">
+                  <label for="nomeInput">Nome do usuário</label>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-3 col-lg-4 col-xl-4">
+                <div class="form-floating mb-3">
+                  <input type="email" class="form-control" id="emailInput" required placeholder="E-mail" name="email" value="<%= usuario.email %>" <%= usuario._id ? 'readonly' : '' %>>
+                  <label for="emailInput">E-mail</label>
+                  <% if (errorMessage) { %>
+                  <p class="text-danger">
+                    <%= errorMessage %>
+                  </p>
+                  <% } %>
+                </div>
+              </div>
+              <div class="col-12 col-sm-6 col-md-3 col-lg-4 col-xl-4">
+                <div class="form-floating mb-3">
+                  <input type="password" class="form-control" id="rgInput" required placeholder="Senha" name="senha">
+                  <label for="rgInput">Senha</label>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 text-center">
+                <button type="submit" class="btn btn-primary px-4">Salvar</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
       </div>
-      <div class="card-body">
-        <form action="/usuarios" method="post" autocomplete="off">
-          <input type="hidden" name="_id" value="<%= usuario._id %>">
-          <input type="hidden" name="cod" value="<%= usuario.cod %>">
-
-          <i class="fa-solid fa-user me-1"></i> Dados do usuário
-          <div class="row my-2">
-            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
-              <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="nomeInput" required placeholder="Nome do passageiro" name="nome" value="<%= usuario.nome %>">
-                <label for="nomeInput">Nome do usuário</label>
-              </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-3 col-lg-4 col-xl-4">
-              <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="emailInput" required placeholder="E-mail" name="email" value="<%= usuario.email %>" <%= usuario._id ? 'readonly' : '' %>>
-                <label for="emailInput">E-mail</label>
-                <% if (errorMessage) { %>
-                <p class="text-danger">
-                  <%= errorMessage %>
-                </p>
-                <% } %>
-              </div>
-            </div>
-            <div class="col-12 col-sm-6 col-md-3 col-lg-4 col-xl-4">
-              <div class="form-floating mb-3">
-                <input type="password" class="form-control" id="rgInput" required placeholder="Senha" name="senha">
-                <label for="rgInput">Senha</label>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-12 text-center">
-              <button type="submit" class="btn btn-primary px-4">Salvar</button>
-            </div>
-          </div>
-
-        </form>
-      </div>
+      <p>
+        <a href="/usuarios" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+          <i class="fa-solid fa-arrow-left"></i> Voltar para listagem
+        </a>
+      </p>
     </div>
-    <p>
-      <a href="/usuarios" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
-        <i class="fa-solid fa-arrow-left"></i> Voltar para listagem
-      </a>
-    </p>
-  </div>
-</main>
-<%- include('../partials/footer') %>
-<script src="/js/formatterUtils.js"></script>
+  </main>
+  <%- include('../partials/footer') %>
+  <script src="/js/formatterUtils.js"></script>
 </body>
 
 </html>

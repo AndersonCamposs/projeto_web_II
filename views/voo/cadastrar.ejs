@@ -2,8 +2,9 @@
 <html lang="en">
 <%- include('../partials/head', { title: "Cadastrar voo" }) %>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
   <%- include('../partials/navBar') %>
+  <main class="flex-grow-1"></main>
   <div class="container">
     <p class="text-center fs-3 my-3">Adicionar voo</p>
     <div class="card mb-3">
@@ -98,7 +99,15 @@
         </form>
       </div>
     </div>
+
+    <p>
+      <a href="/voos" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover mb-2">
+        <i class="fa-solid fa-arrow-left"></i> Voltar para listagem
+      </a>
+    </p>
   </div>
+  </main>
+  <%- include('../partials/footer') %>
 </body>
 
 </html>
