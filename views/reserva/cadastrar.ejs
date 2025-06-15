@@ -57,7 +57,7 @@
             <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
               <div class="input-group mb-3">
                 <div class="form-floating mb-1">
-                  <input type="text" class="form-control" id="cpfInput" required maxlength="14" placeholder="CPF do passageiro" value="<%= reserva.passageiro? reserva.passageiro.cpf : ''%>">
+                  <input type="text" class="form-control" id="cpfInput" required maxlength="14" placeholder="CPF do passageiro" value="<%= reserva.passageiro? reserva.passageiro.cpf : ''%>" <%= reserva.passageiro? 'readonly' : '' %>>
                   <label for="cpfInput">CPF do passageiro</label>
                 </div>
               </div>
@@ -65,7 +65,7 @@
           </div>
           <div class="row d-flex justify-content-center">
             <div class="col-12 col-sm-12 col-md-8 col-lg-6 d-flex justify-content-center">
-              <button id="btnBuscarPassageiro" class="btn btn-primary">Buscar</button>
+              <button id="btnBuscarPassageiro" class="btn btn-primary" <%= reserva.passageiro? 'disabled' : '' %>>Buscar</button>
             </div>
           </div>
           <div class="row d-flex justify-content-center mt-3 d-none" id="statusBuscaPassageiro">
@@ -105,7 +105,7 @@
                     <select class="form-select" id="tipoPagamentoSelect" aria-label="Floating label select example" required name="tipoPagamento">
                       <option selected disabled value="">Selecione uma opção de pagamento</option>
                       <option value="PIX" <%= reserva.tipoPagamento === 'PIX' ? 'selected' :  ''%>>Pix</option>
-                      <option value="CARTÃO CRÉDITO/DÉBITO" <%= reserva.tipoPagamento === 'CARTÃO CRÉDITO/DÉBITO' ? 'selected' :  ''%>>Cartão de crédito/débito</option>
+                      <option value="CARTÃO DE CRÉDITO/DÉBITO" <%= reserva.tipoPagamento === 'CARTÃO DE CRÉDITO/DÉBITO' ? 'selected' :  ''%>>Cartão de crédito/débito</option>
                       <option value="DINHEIRO" <%= reserva.tipoPagamento === 'DINHEIRO' ? 'selected' :  ''%>>Dinheiro</option>
                     </select>
                     <label for="tipoPagamentoSelect">Forma de pagamento</label>

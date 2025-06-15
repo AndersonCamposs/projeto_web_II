@@ -8,7 +8,7 @@ const reservaSchema = Schema(
     valor: { type: Number, required: true },
     tipoPagamento: {
       type: String,
-      enum: ['PIX', 'CARTÃO CRÉDITO/DÉBITO', 'DINHEIRO'],
+      enum: ['PIX', 'CARTÃO DE CRÉDITO/DÉBITO', 'DINHEIRO'],
       default: 'DINHEIRO',
     },
     passageiro: {

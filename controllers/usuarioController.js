@@ -69,7 +69,7 @@ class UsuarioController {
         status = 3;
         obj.senha = bcrypt.hashSync(senha, bcrypt.genSaltSync(10)); // gera o novo hash
         await Usuario.updateOne({ _id }, obj);
-        res.redirect(`/usuarios?s=${status}`);
+        res.redirect(`/usuarios/logout?s=${status}`);
       } else {
         status = 1;
         const hash = bcrypt.hashSync(senha, bcrypt.genSaltSync(10));
@@ -131,6 +131,8 @@ class UsuarioController {
   }
 
   static logout(req, res) {
+    const s = req.query.s;
+
     req.session.destroy((e) => {
       if (e) {
         res.render('error', { error: e });
@@ -138,7 +140,8 @@ class UsuarioController {
     });
 
     res.clearCookie('connect.sid');
-    res.redirect('/usuarios/login');
+
+    res.redirect(`/usuarios/login${s ? '?s=' + s : ''}`);
   }
 
   static redirectEditarPerfil(req, res) {
