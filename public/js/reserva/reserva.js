@@ -11,7 +11,6 @@ document.querySelector('#selectVooReserva').addEventListener('change', (e) => {
 
   CARD_BUSCA_PASSAGEIRO.classList.remove('d-none');
   document.querySelector('#idVoo').value = e.target.value;
-  console.log(e.target.value);
 });
 
 document.querySelector('#btnBuscarPassageiro').addEventListener('click', async () => {
