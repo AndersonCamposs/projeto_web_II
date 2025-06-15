@@ -19,7 +19,7 @@
                 <select class="form-select" id="selectVooReserva" aria-label="Select para escolha do voo em que vai ser feita a reserva" required>
                   <option <%= reserva.voo ? "" : "selected" %> disabled value="">Escolha o voo</option>
                   <% listaVoos.forEach((voo) => { %>
-                  <option <%= reserva.voo && reserva.voo._id === voo._id ? "select" : "" %> value="<%= voo.id %>">
+                  <option <%= (reserva.voo && reserva.voo._id.toString() === voo._id.toString()) ? "selected" : "" %> value="<%= voo._id %>">
                     <%= `${voo.cidadeOrigem} - ${voo.cidadeDestino}(${formatarDataHora(voo.data)})` %>
                   </option>
                   <% }) %>

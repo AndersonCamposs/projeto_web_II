@@ -18,7 +18,8 @@ class ReservaController {
     if (cod) {
       reserva = await Reserva.findOne({ cod }).populate('passageiro').populate('voo');
     }
-    const listaVoos = await Voo.find({ data: { $gt: new Date() } }); // lista de voos disponíveis
+    // lista de voos disponíveis
+    const listaVoos = await Voo.find({ data: { $gt: new Date() } });
     res.render('reserva/cadastrar', { reserva, listaVoos, formatarDataHora });
   }
 

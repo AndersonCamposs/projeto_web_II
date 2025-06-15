@@ -5,9 +5,13 @@ const BASE_URL = window.location.origin;
 
 document.querySelector('#selectVooReserva').addEventListener('change', (e) => {
   const statusEscolhaVoo = document.querySelector('#statusEscolhaVoo');
-  statusEscolhaVoo.classList.add('d-none');
+  if (statusEscolhaVoo) {
+    statusEscolhaVoo.classList.add('d-none');
+  }
+
   CARD_BUSCA_PASSAGEIRO.classList.remove('d-none');
   document.querySelector('#idVoo').value = e.target.value;
+  console.log(e.target.value);
 });
 
 document.querySelector('#btnBuscarPassageiro').addEventListener('click', async () => {
