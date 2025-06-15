@@ -83,18 +83,14 @@ class VooController {
     try {
       session.startTransaction();
 
-      const idString = req.params._id;
-      let idObject = null;
-      if (mongoose.Types.ObjectId.isValid(idString)) {
-        idObject = new mongoose.Types.ObjectId(idString);
-      }
+      const cod = req.params.cod;
 
-      const vooExistente = await Voo.findOne({ _id: idObject });
+      const vooExistente = await Voo.findOne({ cod });
       if (vooExistente) {
         await Reserva.deleteMany({ voo: vooExistente._id });
       }
 
-      await Voo.deleteOne({ _id: idObject });
+      await Voo.deleteOne({ cod });
 
       await session.commitTransaction();
       session.endSession();

@@ -55,9 +55,9 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                          <button type="button" id="btnConfirmarDelecao" class="btn btn-primary" data-cod-exclusao="<%= reserva.cod%>" onclick="excluirReserva(this)">
+                          <a href="/reservas/delete/<%= reserva.cod %>" class="btn btn-primary">
                             Confirmar
-                          </button>
+                          </a>
                         </div>
                       </div>
                     </div>

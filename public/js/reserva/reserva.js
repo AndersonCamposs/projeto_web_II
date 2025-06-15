@@ -37,8 +37,3 @@ document.querySelector('#btnBuscarPassageiro').addEventListener('click', async (
     console.log(e);
   }
 });
-
-function excluirReserva(btn) {
-  const cod = btn.dataset.codExclusao;
-  window.location.href = `/reservas/delete/${cod}`;
-}

@@ -11,10 +11,13 @@
         Voo não encontrado. Para listar todos os voos, <a href="/voos" class="alert-link">clique aqui</a>.
       </div>
       <% } else { %>
+
       <p class="text-center fs-3 my-3">Informações do voo</p>
+      <% if (jaPassou) { %>
       <div class="alert alert-warning text-center" role="alert">
         Este voo já passou. Você não pode editar os dados dele, apenas visualizar.
       </div>
+      <% } %>
       <div class="card mb-3">
         <div class="card-header">
           <i class="fa-solid fa-house"></i> Informações de origem

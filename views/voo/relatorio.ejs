@@ -53,9 +53,9 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                          <button type="button" id="btnConfirmarDelecao" class="btn btn-primary" data-id-exclusao="<%= voo._id%>" onclick="excluirVoo(this)">
+                          <a href="/voos/delete/<%= voo.cod %>" class="btn btn-primary">
                             Confirmar
-                          </button>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -96,7 +96,6 @@
   </main>
   <%- include('../partials/footer') %>
 
-  <script src="/js/voo/voo.js"></script>
   <script src="/js/toastManager.js"></script>
 </body>
 

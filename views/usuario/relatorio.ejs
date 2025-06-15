@@ -48,13 +48,13 @@
                           <h1 class="modal-title fs-5" id="modalConfirmacaoExclusaoTitle">Confirmação de Exclusão</h1>
                         </div>
                         <div class="modal-body">
-                          Tem certeza que deseja excluir o usuário <strong><%= usuario.nome %></strong> ?
+                          <strong><%= usuario.nome %></strong>, tem certeza que deseja excluir seu próprio perfil ?
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                          <button type="button" id="btnConfirmarDelecao" class="btn btn-primary" data-cod-exclusao="<%= usuario.cod%>" onclick="excluirUsuario(this)">
+                          <a href="/usuarios/delete/<%= usuario.cod %>" class="btn btn-primary" data-cod-exclusao="<%= usuario.cod%>" onclick="excluirUsuario(this)">
                             Confirmar
-                          </button>
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -108,7 +108,6 @@
   </main>
   <%- include('../partials/footer') %>
 
-  <script src="/js/usuario/usuario.js"></script>
   <script src="/js/toastManager.js"></script>
 </body>
 

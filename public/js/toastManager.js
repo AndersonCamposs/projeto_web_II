@@ -7,15 +7,15 @@ let toastBodyContent = '';
 let toastStyle = '';
 
 document.addEventListener('DOMContentLoaded', () => {
-  if (s.value === '1') {
+  if (s.value == '1') {
     toastTitle = 'Adicionado com sucesso';
     toastBodyContent = 'O registro foi adiciondo com sucesso.';
     toastStyle = 'text-success';
-  } else if (s.value === '2') {
+  } else if (s.value == '2') {
     toastTitle = 'Removido com sucesso';
-    toastBodyContent = 'O registro de foi removido com sucesso e não se encontra mais na lista.';
+    toastBodyContent = 'O registro foi removido com sucesso e não se encontra mais na lista.';
     toastStyle = 'text-danger';
-  } else if (s.value === '3') {
+  } else if (s.value == '3') {
     toastTitle = 'Atualizado com sucesso';
     toastBodyContent = 'O registro foi atualizado com sucesso.';
     toastStyle = 'text-primary';
