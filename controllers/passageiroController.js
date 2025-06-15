@@ -93,7 +93,7 @@ class PassageiroController {
       });
     } else {
       if (passageiro) {
-        res.status(200).json(passageiro);
+        res.status(200).json({ passageiro, mensagem: `Passageiro(a) ${passageiro.nome} encontrado(a) com sucesso.` });
       } else {
         res.status(404).json({ mensagem: 'Passageiro não encontrado.' });
       }
