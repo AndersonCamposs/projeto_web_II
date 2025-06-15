@@ -67,15 +67,16 @@ class UsuarioController {
 
       if (_id) {
         status = 3;
+        obj.senha = bcrypt.hashSync(senha, bcrypt.genSaltSync(10)); // gera o novo hash
         await Usuario.updateOne({ _id }, obj);
+        res.redirect(`/usuarios?s=${status}`);
       } else {
         status = 1;
         const hash = bcrypt.hashSync(senha, bcrypt.genSaltSync(10));
         const novoUsuario = new Usuario({ ...obj, senha: hash });
         await novoUsuario.save();
+        res.redirect(`/usuarios/login?s=${status}`);
       }
-
-      res.redirect(`/usuarios?s=${status}`);
     } catch (e) {
       req.session.addUsuarioErro = {
         usuarioAdicionado: e.obj,
