@@ -1,25 +1,29 @@
-document.querySelector('#cpfInput').addEventListener('input', (e) => {
-  let cpf = e.target.value.replace(/\D/g, '');
+const cpfInput = document.querySelector('#cpfInput');
+const telefoneInput = document.querySelector('#telefoneInput');
 
-  cpf = cpf.replace(/^(\d{3})(\d)/, '$1.$2');
-  cpf = cpf.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
-  cpf = cpf.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4');
+if (cpfInput) {
+  cpfInput.addEventListener('input', (e) => {
+    let cpf = e.target.value.replace(/\D/g, '');
 
-  e.target.value = cpf;
-});
+    cpf = cpf.replace(/^(\d{3})(\d)/, '$1.$2');
+    cpf = cpf.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
+    cpf = cpf.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, '$1.$2.$3-$4');
 
-document.querySelector('#telefoneInput').addEventListener('input', (e) => {
-  let telefone = e.target.value.replace(/[^0-9]/g, '');
+    e.target.value = cpf;
+  });
+}
 
-  if (telefone.length > 2) {
-    telefone = `(${telefone.slice(0, 2)}) ${telefone.slice(2)}`;
-  }
-  if (telefone.length > 10) {
-    telefone = `(${telefone.slice(1, 3)}) ${telefone.slice(5, 10)}-${telefone.slice(10)}`;
-  }
+if (telefoneInput) {
+  telefoneInput.addEventListener('input', (e) => {
+    let telefone = e.target.value.replace(/[^0-9]/g, '');
 
-  e.target.value = telefone;
+    if (telefone.length > 2) {
+      telefone = `(${telefone.slice(0, 2)}) ${telefone.slice(2)}`;
+    }
+    if (telefone.length > 10) {
+      telefone = `(${telefone.slice(1, 3)}) ${telefone.slice(5, 10)}-${telefone.slice(10)}`;
+    }
 
-  // (xx) xxxxx-xxxx
-  // xxxxxxx
-});
+    e.target.value = telefone;
+  });
+}
