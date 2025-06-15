@@ -9,7 +9,7 @@ let toastStyle = '';
 document.addEventListener('DOMContentLoaded', () => {
   if (s.value == '1') {
     toastTitle = 'Adicionado com sucesso';
-    toastBodyContent = 'O registro foi adiciondo com sucesso.';
+    toastBodyContent = 'O registro foi adicionado com sucesso.';
     toastStyle = 'text-success';
   } else if (s.value == '2') {
     toastTitle = 'Removido com sucesso';
