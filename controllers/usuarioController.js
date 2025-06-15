@@ -102,7 +102,7 @@ class UsuarioController {
         return;
       }
       await Usuario.deleteOne({ cod });
-      res.redirect('/usuarios/logout');
+      res.redirect('/usuarios/logout?s=2');
     } catch (e) {
       console.log(e);
     }

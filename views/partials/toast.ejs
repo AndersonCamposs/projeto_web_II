@@ -1,0 +1,14 @@
+<div class="toast-container position-fixed top-0 end-0 p-3">
+  <input type="hidden" id="status" value="<%= s %>">
+  <div id="statusToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="toast-header text-success">
+      <i class="fa-solid fa-square-check me-2"></i>
+      <strong class="me-auto" id="toast-title"></strong>
+      <small> <%= new Date().toLocaleTimeString('pt-BR', { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', hour12: false}) %> </small>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body" id="toast-body-content">
+
+    </div>
+  </div>
+</div>
